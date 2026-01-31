@@ -17,10 +17,22 @@ type PageProps = {
 export const dynamic = "force-dynamic";
 export const dynamicParams = true;
 
+function normalizeSlug(value: string) {
+  return decodeURIComponent(value)
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export async function generateMetadata({ params }: PageProps) {
-  const slug = decodeURIComponent(params.slug).toLowerCase();
-  const dbPost = await getBlogPostBySlug(slug);
-  const post = dbPost ?? blogPosts.find((item) => item.slug.toLowerCase() === slug);
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalizedSlug = normalizeSlug(rawSlug);
+  const dbPost = await getBlogPostBySlug(rawSlug);
+  const post =
+    dbPost ??
+    blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
     return createMetadata({
@@ -39,9 +51,12 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const slug = decodeURIComponent(params.slug).toLowerCase();
-  const dbPost = await getBlogPostBySlug(slug);
-  const post = dbPost ?? blogPosts.find((item) => item.slug.toLowerCase() === slug);
+  const rawSlug = decodeURIComponent(params.slug);
+  const normalizedSlug = normalizeSlug(rawSlug);
+  const dbPost = await getBlogPostBySlug(rawSlug);
+  const post =
+    dbPost ??
+    blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
     notFound();
