@@ -59,7 +59,7 @@ Ce projet inclut un mini CMS pour modifier le contenu de l’accueil via `/admin
 
 - Crée une base sur https://neon.tech
 - Récupère `DATABASE_URL`
-- Exécute le script `sql/home_content.sql` dans l’éditeur SQL Neon
+- Exécute le script `sql/page_content.sql` dans l’éditeur SQL Neon
 
 ### 2) Variables d’environnement (Netlify ou .env.local)
 
@@ -80,7 +80,19 @@ node -e "const crypto=require('crypto');const salt='change-me';const pass='mon-m
 ### 4) Accès
 
 - Login : `/admin`
-- Édition accueil : `/admin/home`
+- Édition pages : `/admin/content/{slug}`
+
+Slugs disponibles :
+- `home` (Accueil)
+- `creation` (Création de site)
+- `seo` (SEO)
+- `realisations`
+- `blog`
+- `about`
+- `contact`
+- `mentions`
+- `privacy`
+- `thanks`
 
 ## Scripts utiles
 

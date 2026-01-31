@@ -16,7 +16,8 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
 import { ctas, site } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
-import { getHomeContent } from "@/lib/home-content";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -29,49 +30,7 @@ export const generateMetadata = () =>
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const fallbackContent = {
-    hero_title: "Sites web qui convertissent + SEO qui attire des clients",
-    hero_subtitle:
-      "Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable.",
-    hero_bullets: [
-      "Positionnement clair et messages orientés décisions",
-      "Architecture SEO pensée pour générer des leads",
-      "Accompagnement simple, transparent, efficace",
-    ],
-    value_props: [
-      {
-        title: "Clarté stratégique",
-        text: "Un message net, une offre lisible, des pages qui guident.",
-      },
-      {
-        title: "Performance fluide",
-        text: "Rapidité, mobile-first, expérience premium sans friction.",
-      },
-      {
-        title: "Acquisition durable",
-        text: "SEO structuré pour générer des leads qualifiés.",
-      },
-    ],
-    method_steps: [
-      {
-        title: "1. Diagnostic",
-        text: "Analyse de l’offre, du marché et des freins actuels.",
-      },
-      {
-        title: "2. Structure",
-        text: "Architecture des pages, messages et parcours clients.",
-      },
-      {
-        title: "3. Production",
-        text: "Design, développement, contenus et SEO technique.",
-      },
-      {
-        title: "4. Pilotage",
-        text: "Suivi des performances et itérations mensuelles.",
-      },
-    ],
-  };
-  const content = (await getHomeContent()) ?? fallbackContent;
+  const content = await getPageContent("home", pageDefaults.home);
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -461,8 +420,8 @@ export default async function Home() {
       </Section>
 
       <CTASection
-        title="Prêt à améliorer votre acquisition ?"
-        subtitle="Parlez-nous de votre projet et recevez un plan d’action clair sous 48h."
+        title={content.cta_title}
+        subtitle={content.cta_subtitle}
       />
     </>
   );

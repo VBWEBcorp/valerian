@@ -28,11 +28,11 @@ export default function AdminLoginPage() {
       return;
     }
 
-    router.push("/admin/home");
+    router.push("/admin/content/home");
   }
 
   return (
-    <Section className="bg-white/60">
+    <Section>
       <Container>
         <div className="card mx-auto max-w-lg rounded-3xl p-8">
           <h1 className="text-2xl font-semibold text-slate-900">

@@ -9,6 +9,8 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -61,7 +63,14 @@ const faqItems = [
   },
 ];
 
-export default function SeoServicePage() {
+export const dynamic = "force-dynamic";
+
+export default async function SeoServicePage() {
+  const content = await getPageContent("seo", pageDefaults.seo);
+  const faqItems = content.faq.map((item) => ({
+    question: item.title,
+    answer: item.text,
+  }));
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Services", href: "/services/referencement-naturel" },
@@ -121,11 +130,10 @@ export default function SeoServicePage() {
                 Référencement naturel
               </p>
               <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-                Un SEO structuré pour attirer des clients, pas seulement du trafic.
+                {content.hero_title}
               </h1>
               <p className="mt-4 text-lg text-neutral-600">
-                Nous activons les 3 piliers du SEO : technique, contenu et autorité.
-                Objectif : des positions durables et des leads qualifiés.
+                {content.hero_subtitle}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <ButtonLink href="/contact">Demander un devis</ButtonLink>
@@ -148,25 +156,13 @@ export default function SeoServicePage() {
       <Section>
         <Container>
           <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: Search,
-                title: "Technique solide",
-                text: "Performance, structure, indexation et maillage interne.",
-              },
-              {
-                icon: BarChart3,
-                title: "Contenu stratégique",
-                text: "Pages piliers, réponses aux intentions et copywriting clair.",
-              },
-              {
-                icon: ShieldCheck,
-                title: "Autorité durable",
-                text: "Stratégie de liens et crédibilité éditoriale progressive.",
-              },
-            ].map((item) => (
+            {content.pillars.map((item, index) => (
               <div key={item.title} className="card card-hover rounded-2xl p-6">
-                <item.icon className="h-5 w-5 text-neutral-900" />
+                {index % 3 === 0 && <Search className="h-5 w-5 text-neutral-900" />}
+                {index % 3 === 1 && <BarChart3 className="h-5 w-5 text-neutral-900" />}
+                {index % 3 === 2 && (
+                  <ShieldCheck className="h-5 w-5 text-neutral-900" />
+                )}
                 <p className="mt-3 text-sm font-semibold text-neutral-900">
                   {item.title}
                 </p>
@@ -193,24 +189,7 @@ export default function SeoServicePage() {
               </p>
             </div>
             <div className="grid gap-4">
-              {[
-                {
-                  title: "1. Audit",
-                  text: "Analyse technique, sémantique et concurrentielle.",
-                },
-                {
-                  title: "2. Stratégie",
-                  text: "Plan d’action, architecture et priorisation des pages.",
-                },
-                {
-                  title: "3. Production",
-                  text: "Optimisations techniques + création de contenus.",
-                },
-                {
-                  title: "4. Autorité",
-                  text: "Acquisition de signaux de confiance et liens utiles.",
-                },
-              ].map((step) => (
+              {content.method_steps.map((step) => (
                 <div key={step.title} className="card card-hover rounded-2xl p-6">
                   <p className="text-sm font-semibold text-neutral-900">
                     {step.title}
@@ -234,13 +213,7 @@ export default function SeoServicePage() {
                 Une visibilité durable et des demandes qualifiées.
               </h2>
               <ul className="mt-6 space-y-2 text-sm text-slate-700">
-                {[
-                  "Positionnement progressif sur vos requêtes prioritaires",
-                  "Trafic qualifié et mieux segmenté",
-                  "Pages services qui convertissent",
-                  "Diminution de la dépendance publicitaire",
-                  "Reporting lisible et pilotage mensuel",
-                ].map((item) => (
+                {content.results.map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-indigo-500" />
                     {item}
@@ -253,20 +226,7 @@ export default function SeoServicePage() {
                 Ce que vous obtenez
               </p>
               <div className="mt-6 space-y-4">
-                {[
-                  {
-                    title: "Audit complet",
-                    text: "Points techniques, sémantique et opportunités.",
-                  },
-                  {
-                    title: "Roadmap SEO",
-                    text: "Priorités mensuelles + plan éditorial réaliste.",
-                  },
-                  {
-                    title: "Optimisations",
-                    text: "Pages existantes, nouvelles pages, internal linking.",
-                  },
-                ].map((item) => (
+                {content.deliverables.map((item) => (
                   <div key={item.title} className="card card-hover rounded-2xl p-5">
                     <p className="text-sm font-semibold text-neutral-900">
                       {item.title}
@@ -297,8 +257,8 @@ export default function SeoServicePage() {
       </Section>
 
       <CTASection
-        title="Prêt à structurer votre visibilité SEO ?"
-        subtitle="Obtenez un plan d’action clair et priorisé."
+        title={content.cta_title}
+        subtitle={content.cta_subtitle}
       />
     </>
   );

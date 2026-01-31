@@ -4,6 +4,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -12,7 +14,10 @@ export const generateMetadata = () =>
     path: "/politique-de-confidentialite",
   });
 
-export default function PolitiqueConfidentialitePage() {
+export const dynamic = "force-dynamic";
+
+export default async function PolitiqueConfidentialitePage() {
+  const content = await getPageContent("privacy", pageDefaults.privacy);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
@@ -37,20 +42,14 @@ export default function PolitiqueConfidentialitePage() {
           <Breadcrumbs items={breadcrumbs} />
           <div className="rounded-3xl border border-neutral-200 bg-white p-8">
             <h1 className="text-3xl font-semibold text-neutral-900">
-              Politique de confidentialité
+              {content.title}
             </h1>
             <div className="mt-6 space-y-4 text-sm text-neutral-600">
+              {content.body.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
               <p>
-                Les données collectées via le formulaire de contact servent uniquement
-                à répondre à votre demande. Elles ne sont ni revendues ni partagées.
-              </p>
-              <p>
-                Vous pouvez demander la modification ou la suppression de vos données
-                à tout moment en écrivant à contact@valerian-digital.fr.
-              </p>
-              <p>
-                Les mesures techniques nécessaires sont mises en place pour protéger
-                vos informations (sécurisation des accès, suivi des bonnes pratiques).
+                Contact : {site.email}
               </p>
             </div>
           </div>

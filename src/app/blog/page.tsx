@@ -6,6 +6,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 import { blogPosts } from "@/content/blog";
 
 export const generateMetadata = () =>
@@ -16,7 +18,10 @@ export const generateMetadata = () =>
     path: "/blog",
   });
 
-export default function BlogPage() {
+export const dynamic = "force-dynamic";
+
+export default async function BlogPage() {
+  const content = await getPageContent("blog", pageDefaults.blog);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Blog", href: "/blog" },
@@ -45,10 +50,10 @@ export default function BlogPage() {
               Blog
             </p>
             <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-              Des contenus pour améliorer votre visibilité et vos conversions.
+              {content.hero_title}
             </h1>
             <p className="mt-4 text-lg text-neutral-600">
-              Stratégie SEO, structure des pages, performance et acquisition.
+              {content.hero_subtitle}
             </p>
           </div>
         </Container>

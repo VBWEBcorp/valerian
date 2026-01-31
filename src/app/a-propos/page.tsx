@@ -7,6 +7,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -16,7 +18,10 @@ export const generateMetadata = () =>
     path: "/a-propos",
   });
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const content = await getPageContent("about", pageDefaults.about);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "À propos", href: "/a-propos" },
@@ -46,11 +51,10 @@ export default function AboutPage() {
                 À propos
               </p>
               <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-                Une agence boutique pour des décisions rapides et efficaces.
+                {content.hero_title}
               </h1>
               <p className="mt-4 text-lg text-neutral-600">
-                Valérian Digital accompagne les entreprises françaises qui veulent
-                un site propre, rapide et un référencement naturel qui génère des leads.
+                {content.hero_subtitle}
               </p>
             </div>
             <Image
@@ -72,11 +76,10 @@ export default function AboutPage() {
                 Positionnement
               </p>
               <h2 className="mt-3 text-3xl font-semibold text-neutral-900">
-                L’interlocuteur senior qui relie design, tech et SEO.
+                {content.positioning_title}
               </h2>
               <p className="mt-4 text-neutral-600">
-                Vous gagnez en clarté grâce à un accompagnement pragmatique : une
-                stratégie simple, des priorités business, des livrables concrets.
+                {content.positioning_text}
               </p>
             </div>
             <div>
@@ -84,12 +87,7 @@ export default function AboutPage() {
                 Valeurs
               </p>
               <ul className="mt-6 space-y-3 text-sm text-slate-700">
-                {[
-                  "Exigence sur la qualité et la performance.",
-                  "Transparence sur les actions et les résultats.",
-                  "Simplicité dans la communication.",
-                  "Focus sur la conversion et les leads.",
-                ].map((item) => (
+                {content.values.map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-indigo-500" />
                     {item}
@@ -104,20 +102,7 @@ export default function AboutPage() {
       <Section className="bg-white/60">
         <Container>
           <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                title: "Méthode orientée business",
-                text: "Chaque page doit servir un objectif de conversion.",
-              },
-              {
-                title: "Production rapide",
-                text: "Des cycles courts avec validation claire à chaque étape.",
-              },
-              {
-                title: "SEO sans promesses",
-                text: "Une stratégie durable, alignée sur vos priorités.",
-              },
-            ].map((item) => (
+            {content.differentiators.map((item) => (
               <div key={item.title} className="card card-hover rounded-2xl p-6">
                 <p className="text-sm font-semibold text-neutral-900">
                   {item.title}
@@ -130,8 +115,8 @@ export default function AboutPage() {
       </Section>
 
       <CTASection
-        title="Vous voulez travailler avec un partenaire fiable ?"
-        subtitle="Présentez votre projet et recevez un retour précis."
+        title={content.cta_title}
+        subtitle={content.cta_subtitle}
       />
     </>
   );

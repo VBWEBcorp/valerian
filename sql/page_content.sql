@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS page_content (
+  slug TEXT PRIMARY KEY,
+  content JSONB NOT NULL DEFAULT '{}'::jsonb,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);

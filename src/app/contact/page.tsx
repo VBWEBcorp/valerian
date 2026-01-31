@@ -4,6 +4,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -13,7 +15,10 @@ export const generateMetadata = () =>
     path: "/contact",
   });
 
-export default function ContactPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  const content = await getPageContent("contact", pageDefaults.contact);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Contact", href: "/contact" },
@@ -42,10 +47,10 @@ export default function ContactPage() {
               Contact
             </p>
             <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-              Parlez-nous de votre projet.
+              {content.hero_title}
             </h1>
             <p className="mt-4 text-lg text-neutral-600">
-              Réponse rapide avec une proposition claire et un plan d’action.
+              {content.hero_subtitle}
             </p>
           </div>
         </Container>
@@ -148,7 +153,7 @@ export default function ContactPage() {
             <div className="space-y-6">
               <div className="card rounded-3xl p-8">
                 <p className="text-sm font-semibold text-neutral-900">
-                  Informations de contact
+                  {content.info_title}
                 </p>
                 <p className="mt-3 text-sm text-slate-600">
                   {site.legalName}
@@ -162,10 +167,10 @@ export default function ContactPage() {
               </div>
               <div id="calendrier" className="card rounded-3xl p-8">
                 <p className="text-sm font-semibold text-neutral-900">
-                  Planifier un appel
+                  {content.call_title}
                 </p>
                 <p className="mt-3 text-sm text-slate-600">
-                  Dites-nous vos créneaux et nous revenons vers vous sous 24h.
+                  {content.call_text}
                 </p>
                 <a
                   href="mailto:contact@valerian-digital.fr"

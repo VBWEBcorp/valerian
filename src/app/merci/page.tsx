@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Section } from "@/components/Section";
 import { createMetadata } from "@/lib/seo";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -10,7 +12,10 @@ export const generateMetadata = () =>
     path: "/merci",
   });
 
-export default function MerciPage() {
+export const dynamic = "force-dynamic";
+
+export default async function MerciPage() {
+  const content = await getPageContent("thanks", pageDefaults.thanks);
   return (
     <Section className="bg-neutral-50">
       <Container>
@@ -19,10 +24,10 @@ export default function MerciPage() {
             Merci
           </p>
           <h1 className="mt-3 text-3xl font-semibold text-neutral-900">
-            Votre demande a bien été envoyée.
+            {content.title}
           </h1>
           <p className="mt-4 text-neutral-600">
-            Nous revenons vers vous sous 24 à 48h avec une proposition claire.
+            {content.subtitle}
           </p>
           <Link
             href="/"

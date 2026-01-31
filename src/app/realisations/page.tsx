@@ -7,6 +7,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 import { caseStudies } from "@/content/case-studies";
 
 export const generateMetadata = () =>
@@ -17,7 +19,10 @@ export const generateMetadata = () =>
     path: "/realisations",
   });
 
-export default function RealisationsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function RealisationsPage() {
+  const content = await getPageContent("realisations", pageDefaults.realisations);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Réalisations", href: "/realisations" },
@@ -47,10 +52,10 @@ export default function RealisationsPage() {
                 Réalisations
               </p>
               <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-                Études de cas : sites et SEO qui servent la croissance.
+              {content.hero_title}
               </h1>
               <p className="mt-4 text-lg text-neutral-600">
-                Quelques projets représentatifs pour des entreprises ambitieuses.
+              {content.hero_subtitle}
               </p>
             </div>
             <Image

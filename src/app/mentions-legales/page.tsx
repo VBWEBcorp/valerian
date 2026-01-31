@@ -4,6 +4,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -12,7 +14,10 @@ export const generateMetadata = () =>
     path: "/mentions-legales",
   });
 
-export default function MentionsLegalesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function MentionsLegalesPage() {
+  const content = await getPageContent("mentions", pageDefaults.mentions);
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Mentions légales", href: "/mentions-legales" },
@@ -37,9 +42,12 @@ export default function MentionsLegalesPage() {
           <Breadcrumbs items={breadcrumbs} />
           <div className="rounded-3xl border border-neutral-200 bg-white p-8">
             <h1 className="text-3xl font-semibold text-neutral-900">
-              Mentions légales
+              {content.title}
             </h1>
             <div className="mt-6 space-y-4 text-sm text-neutral-600">
+              {content.body.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
               <p>
                 Éditeur du site : {site.legalName}. Contact : {site.email} /{" "}
                 {site.phone}.
@@ -48,8 +56,6 @@ export default function MentionsLegalesPage() {
                 Adresse : {site.address.street}, {site.address.postalCode}{" "}
                 {site.address.city}, {site.address.country}.
               </p>
-              <p>Hébergeur : Netlify, Inc. (San Francisco, USA).</p>
-              <p>Responsable de publication : Valérian Digital.</p>
             </div>
           </div>
         </Container>

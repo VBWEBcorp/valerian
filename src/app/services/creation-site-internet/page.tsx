@@ -9,6 +9,8 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { getPageContent } from "@/lib/page-content";
+import { pageDefaults } from "@/lib/page-defaults";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -18,50 +20,14 @@ export const generateMetadata = () =>
     path: "/services/creation-site-internet",
   });
 
-const faqItems = [
-  {
-    question: "Combien de temps faut-il pour créer un site ?",
-    answer:
-      "La durée dépend du volume de pages et de la disponibilité des contenus. En moyenne, un site vitrine complet se livre en 4 à 6 semaines.",
-  },
-  {
-    question: "Est-ce que le site est optimisé pour le SEO ?",
-    answer:
-      "Oui, chaque page est structurée avec des balises optimisées, une architecture claire et des performances techniques solides.",
-  },
-  {
-    question: "Puis-je modifier le contenu ensuite ?",
-    answer:
-      "Oui, les contenus peuvent être mis à jour facilement et nous pouvons aussi gérer l’évolution en continu.",
-  },
-  {
-    question: "Proposez-vous la rédaction des textes ?",
-    answer:
-      "Oui, la rédaction est incluse pour des contenus orientés conversion et SEO.",
-  },
-  {
-    question: "Le site est-il responsive ?",
-    answer:
-      "Oui, l’ergonomie est pensée pour mobile, tablette et desktop dès le départ.",
-  },
-  {
-    question: "Quels sont les livrables ?",
-    answer:
-      "Vous recevez un site complet, les maquettes, une structure SEO, les contenus et un plan de suivi.",
-  },
-  {
-    question: "Peut-on intégrer des formulaires et des outils ?",
-    answer:
-      "Oui, formulaires, CRM, outils de tracking et automatisations peuvent être intégrés.",
-  },
-  {
-    question: "Quel budget prévoir ?",
-    answer:
-      "Chaque projet est cadré sur devis selon l’ambition, le contenu et les intégrations nécessaires.",
-  },
-];
+export const dynamic = "force-dynamic";
 
-export default function CreationSitePage() {
+export default async function CreationSitePage() {
+  const content = await getPageContent("creation", pageDefaults.creation);
+  const faqItems = content.faq.map((item) => ({
+    question: item.title,
+    answer: item.text,
+  }));
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Services", href: "/services/creation-site-internet" },
@@ -121,11 +87,10 @@ export default function CreationSitePage() {
                 Création de site internet
               </p>
               <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
-                Un site vitrine premium qui clarifie votre offre et convertit.
+                {content.hero_title}
               </h1>
               <p className="mt-4 text-lg text-neutral-600">
-                Nous concevons des sites rapides, structurés et orientés conversion
-                pour transformer vos visiteurs en prospects qualifiés.
+                {content.hero_subtitle}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <ButtonLink href="/contact">Demander un devis</ButtonLink>
@@ -148,25 +113,13 @@ export default function CreationSitePage() {
       <Section>
         <Container>
           <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                icon: Laptop2,
-                title: "Positionnement clair",
-                text: "Votre promesse est visible dès la première seconde.",
-              },
-              {
-                icon: Sparkles,
-                title: "Design premium",
-                text: "Une interface élégante, alignée sur votre niveau de service.",
-              },
-              {
-                icon: CheckCircle2,
-                title: "Parcours optimisé",
-                text: "CTA, preuves, microcopies : tout pousse vers l’action.",
-              },
-            ].map((item) => (
+            {content.feature_cards.map((item, index) => (
               <div key={item.title} className="card card-hover rounded-2xl p-6">
-                <item.icon className="h-5 w-5 text-neutral-900" />
+                {index % 3 === 0 && <Laptop2 className="h-5 w-5 text-neutral-900" />}
+                {index % 3 === 1 && <Sparkles className="h-5 w-5 text-neutral-900" />}
+                {index % 3 === 2 && (
+                  <CheckCircle2 className="h-5 w-5 text-neutral-900" />
+                )}
                 <p className="mt-3 text-sm font-semibold text-neutral-900">
                   {item.title}
                 </p>
@@ -193,24 +146,7 @@ export default function CreationSitePage() {
               </p>
             </div>
             <div className="grid gap-4">
-              {[
-                {
-                  title: "1. Audit & cadrage",
-                  text: "Objectifs, cibles, différenciation, structure des pages.",
-                },
-                {
-                  title: "2. Design & contenus",
-                  text: "Maquettes premium + rédaction orientée conversion.",
-                },
-                {
-                  title: "3. Développement",
-                  text: "Intégration Next.js, performance, responsive et SEO.",
-                },
-                {
-                  title: "4. Mise en ligne",
-                  text: "Tests, checklist qualité et accompagnement post-lancement.",
-                },
-              ].map((step) => (
+              {content.method_steps.map((step) => (
                 <div key={step.title} className="card card-hover rounded-2xl p-6">
                   <p className="text-sm font-semibold text-neutral-900">
                     {step.title}
@@ -234,14 +170,7 @@ export default function CreationSitePage() {
                 Des livrables concrets pour un site fiable et efficace.
               </h2>
               <ul className="mt-6 space-y-2 text-sm text-slate-700">
-                {[
-                  "Arborescence claire et pages clés",
-                  "Copywriting orienté conversion",
-                  "Design premium et responsive",
-                  "SEO technique complet",
-                  "Formulaires et tracking intégrés",
-                  "Documentation et transfert",
-                ].map((item) => (
+                {content.deliverables.map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <CheckCircle2 className="h-4 w-4 text-indigo-500" />
                     {item}
@@ -254,20 +183,7 @@ export default function CreationSitePage() {
                 Packs disponibles (sur devis)
               </p>
               <div className="mt-6 space-y-4">
-                {[
-                  {
-                    title: "Essentiel",
-                    text: "Site vitrine clair, 5 à 7 pages, SEO de base.",
-                  },
-                  {
-                    title: "Croissance",
-                    text: "Pages services détaillées + copywriting avancé.",
-                  },
-                  {
-                    title: "SEO-first",
-                    text: "Architecture optimisée, contenus stratégiques, suivi.",
-                  },
-                ].map((item) => (
+                {content.packs.map((item) => (
                   <div key={item.title} className="card card-hover rounded-2xl p-5">
                     <p className="text-sm font-semibold text-neutral-900">
                       {item.title}
@@ -298,8 +214,8 @@ export default function CreationSitePage() {
       </Section>
 
       <CTASection
-        title="Un site qui reflète votre niveau de service."
-        subtitle="Partagez vos objectifs et recevez une proposition claire."
+        title={content.cta_title}
+        subtitle={content.cta_subtitle}
       />
     </>
   );
