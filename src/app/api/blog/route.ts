@@ -9,6 +9,7 @@ type CreatePayload = {
   meta_title?: string;
   meta_description?: string;
   excerpt?: string;
+  intent?: string;
   cover_image_url?: string;
   content_markdown?: string;
   published?: boolean;
@@ -21,7 +22,7 @@ export async function GET() {
   }
 
   const result = await query(
-    "SELECT id, slug, title, meta_title, meta_description, excerpt, cover_image_url, published, created_at, updated_at FROM blog_posts ORDER BY created_at DESC"
+    "SELECT id, slug, title, meta_title, meta_description, excerpt, intent, cover_image_url, published, created_at, updated_at FROM blog_posts ORDER BY created_at DESC"
   );
   return NextResponse.json({ ok: true, data: result.rows });
 }
@@ -38,13 +39,14 @@ export async function POST(request: Request) {
   }
 
   const result = await query(
-    "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id",
+    "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id",
     [
       body.slug,
       body.title,
       body.meta_title,
       body.meta_description,
       body.excerpt ?? "",
+      body.intent ?? "Article",
       body.cover_image_url ?? null,
       body.content_markdown ?? "",
       body.published ?? true,

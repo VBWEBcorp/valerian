@@ -29,7 +29,7 @@ export default async function BlogPage() {
         slug: post.slug,
         title: post.title,
         excerpt: post.excerpt,
-        intent: "Article",
+        intent: post.intent,
       }))
     : blogPosts;
   const breadcrumbs = [

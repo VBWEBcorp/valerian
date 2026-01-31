@@ -7,6 +7,7 @@ export type BlogPost = {
   meta_title: string;
   meta_description: string;
   excerpt: string;
+  intent: string;
   cover_image_url: string | null;
   content_markdown: string;
   published: boolean;

@@ -13,6 +13,7 @@ export default function AdminBlogNewPage() {
     meta_title: "",
     meta_description: "",
     excerpt: "",
+    intent: "Article",
     cover_image_url: "",
     content_markdown: "",
     published: true,
@@ -101,6 +102,21 @@ export default function AdminBlogNewPage() {
                 rows={2}
                 className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
               />
+            </div>
+            <div>
+              <label className="text-sm font-semibold">Catégorie / Intent</label>
+              <input
+                value={form.intent}
+                onChange={(event) =>
+                  setForm({ ...form, intent: event.target.value })
+                }
+                placeholder="ex: SEO stratégique, Conversion / UX"
+                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
+                required
+              />
+              <p className="mt-1 text-xs text-slate-500">
+                Cette catégorie s'affiche sur la carte de l'article (ex: "SEO stratégique", "Article").
+              </p>
             </div>
             <div>
               <label className="text-sm font-semibold">Image (URL)</label>

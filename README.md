@@ -85,11 +85,32 @@ node -e "const crypto=require('crypto');const salt='change-me';const pass='mon-m
 
 ## Blog CMS
 
-- Liste des articles : `/admin/blog`
-- Création : `/admin/blog/new`
-- Édition : `/admin/blog/{slug}`
+Le blog est entièrement géré via le CMS admin. Tu peux créer, modifier et supprimer des articles.
 
-Champs SEO gérés : `meta_title`, `meta_description`, `slug`, `excerpt`, `content_markdown`.
+### Pages admin du blog :
+
+- **Liste des articles** : `/admin/blog`
+- **Créer un article** : `/admin/blog/new`
+- **Modifier un article** : `/admin/blog/{slug}`
+
+### Champs SEO disponibles :
+
+- `slug` : URL de l'article (ex: `seo-pour-tpe-pme`)
+- `title` : Titre affiché sur la page
+- `meta_title` : Titre SEO (max 60 caractères recommandé)
+- `meta_description` : Description SEO (max 160 caractères recommandé)
+- `excerpt` : Résumé court pour la carte sur la page `/blog`
+- `intent` : Catégorie affichée (ex: "SEO stratégique", "Article")
+- `cover_image_url` : URL de l'image de couverture (optionnel)
+- `content_markdown` : Contenu de l'article en Markdown (avec liens internes/externes)
+- `published` : Si coché, l'article est visible publiquement
+
+### Liens internes et externes dans le Markdown :
+
+```markdown
+[Lien interne](/contact)
+[Lien externe](https://example.com)
+```
 
 Slugs disponibles :
 - `home` (Accueil)
