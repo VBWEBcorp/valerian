@@ -7,7 +7,8 @@ marked.setOptions({
 });
 
 export function renderMarkdown(markdown: string) {
-  const raw = marked.parse(markdown ?? "");
+  const parsed = marked.parse(markdown ?? "") as string | Promise<string>;
+  const raw = typeof parsed === "string" ? parsed : "";
   return sanitizeHtml(raw, {
     allowedTags: [
       "h1",
