@@ -36,23 +36,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="mx-auto w-full max-w-6xl px-6 py-10">
-        <div className="mb-6 flex items-center justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-              Espace admin
-            </p>
-            <h1 className="mt-2 text-2xl font-semibold text-slate-900">
-              Gestion du contenu
-            </h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            disabled={loading}
-            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
-          >
-            {loading ? "Déconnexion..." : "Se déconnecter"}
-          </button>
-        </div>
         <div className="grid items-start gap-8 md:grid-cols-[240px_1fr]">
           <aside className="card h-fit rounded-3xl p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
@@ -78,7 +61,26 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               })}
             </nav>
           </aside>
-          <div className="self-start">{children}</div>
+          <div className="self-start space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                  Espace admin
+                </p>
+                <h1 className="mt-2 text-2xl font-semibold text-slate-900">
+                  Gestion du contenu
+                </h1>
+              </div>
+              <button
+                onClick={handleLogout}
+                disabled={loading}
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
+              >
+                {loading ? "Déconnexion..." : "Se déconnecter"}
+              </button>
+            </div>
+            {children}
+          </div>
         </div>
       </div>
     </div>
