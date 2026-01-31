@@ -15,6 +15,16 @@ type CreatePayload = {
   published?: boolean;
 };
 
+function normalizeSlug(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export async function GET() {
   const token = (await cookies()).get("vd_session")?.value;
   if (!verifySessionToken(token)) {
@@ -38,10 +48,11 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
+  const normalizedSlug = normalizeSlug(body.slug);
   const result = await query(
     "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id",
     [
-      body.slug,
+      normalizedSlug,
       body.title,
       body.meta_title,
       body.meta_description,

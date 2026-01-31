@@ -15,6 +15,16 @@ export type BlogPost = {
   updated_at: string;
 };
 
+function normalizeSlug(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
   if (!process.env.DATABASE_URL) return [];
   try {
@@ -35,12 +45,13 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!process.env.DATABASE_URL) return null;
   try {
-    const normalizedSlug = slug.trim().toLowerCase();
-    const result = await query<BlogPost>(
-      "SELECT * FROM blog_posts WHERE LOWER(slug) = LOWER($1) LIMIT 1",
-      [normalizedSlug]
+    const normalizedSlug = normalizeSlug(slug);
+    const result = await query<BlogPost>("SELECT * FROM blog_posts");
+    return (
+      result.rows.find(
+        (post) => normalizeSlug(post.slug) === normalizedSlug
+      ) ?? null
     );
-    return result.rows[0] ?? null;
   } catch {
     return null;
   }
