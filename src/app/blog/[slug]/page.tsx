@@ -1,0 +1,121 @@
+import { notFound } from "next/navigation";
+import { Container } from "@/components/Container";
+import { Section } from "@/components/Section";
+import { CTASection } from "@/components/CTASection";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { JsonLd } from "@/components/JsonLd";
+import { createMetadata } from "@/lib/seo";
+import { site } from "@/lib/site";
+import { blogPosts } from "@/content/blog";
+
+type PageProps = {
+  params: { slug: string };
+};
+
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = params;
+  const post = blogPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    return createMetadata({
+      title: "Article",
+      description: site.description,
+      path: "/blog",
+    });
+  }
+
+  return createMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/blog/${post.slug}`,
+  });
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = params;
+  const post = blogPosts.find((item) => item.slug === slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const breadcrumbs = [
+    { label: "Accueil", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: post.title, href: `/blog/${post.slug}` },
+  ];
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: `${site.url}${item.href}`,
+    })),
+  };
+
+  return (
+    <>
+      <JsonLd data={breadcrumbSchema} />
+
+      <Section className="bg-white/60">
+        <Container className="space-y-6">
+          <Breadcrumbs items={breadcrumbs} />
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+              {post.intent}
+            </p>
+            <h1 className="mt-3 text-4xl font-semibold text-neutral-900">
+              {post.title}
+            </h1>
+            <p className="mt-4 text-lg text-neutral-600">{post.excerpt}</p>
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <article className="space-y-6 text-neutral-700">
+            {post.content.map((block, index) => {
+              if (block.type === "h2") {
+                return (
+                  <h2
+                    key={`${block.type}-${index}`}
+                    className="pt-6 text-2xl font-semibold text-neutral-900"
+                  >
+                    {block.value as string}
+                  </h2>
+                );
+              }
+              if (block.type === "ul") {
+                return (
+                  <ul key={`${block.type}-${index}`} className="list-disc space-y-2 pl-6">
+                    {(block.value as string[]).map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              return (
+                <p key={`${block.type}-${index}`}>
+                  {block.value as string}
+                </p>
+              );
+            })}
+          </article>
+        </Container>
+      </Section>
+
+      <CTASection
+        title="Besoin d’un accompagnement SEO ?"
+        subtitle="Parlons de votre stratégie et des actions prioritaires."
+      />
+    </>
+  );
+}

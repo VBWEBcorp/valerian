@@ -1,0 +1,14 @@
+import { ReactNode } from "react";
+
+type SectionProps = {
+  children: ReactNode;
+  className?: string;
+};
+
+export function Section({ children, className = "" }: SectionProps) {
+  return (
+    <section className={`section-fade py-16 md:py-24 ${className}`}>
+      {children}
+    </section>
+  );
+}

@@ -1,0 +1,14 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#111111" />
+  <rect x="80" y="80" width="1040" height="470" rx="36" fill="#F7F6F3" />
+  <text x="140" y="240" font-family="Arial, Helvetica, sans-serif" font-size="54" fill="#111111" font-weight="700">
+    Valérian Digital
+  </text>
+  <text x="140" y="320" font-family="Arial, Helvetica, sans-serif" font-size="32" fill="#3B3B3B">
+    Sites web qui convertissent + SEO qui attire des clients
+  </text>
+  <rect x="140" y="380" width="260" height="54" rx="27" fill="#111111" />
+  <text x="180" y="417" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#FFFFFF">
+    Demander un devis
+  </text>
+</svg>
