@@ -53,8 +53,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             {loading ? "Déconnexion..." : "Se déconnecter"}
           </button>
         </div>
-        <div className="grid gap-8 md:grid-cols-[240px_1fr]">
-          <aside className="card rounded-3xl p-6">
+        <div className="grid items-start gap-8 md:grid-cols-[240px_1fr]">
+          <aside className="card h-fit rounded-3xl p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
               Pages
             </p>
@@ -78,7 +78,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               })}
             </nav>
           </aside>
-          <div>{children}</div>
+          <div className="self-start">{children}</div>
         </div>
       </div>
     </div>
