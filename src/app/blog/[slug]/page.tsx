@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { blogPosts } from "@/content/blog";
-import { getBlogPostBySlug } from "@/lib/blog";
+import { getBlogPostBySlug, getBlogPosts } from "@/lib/blog";
 import { renderMarkdown } from "@/lib/markdown";
 
 type PageProps = {
@@ -16,6 +16,7 @@ type PageProps = {
 
 export const dynamic = "force-dynamic";
 export const dynamicParams = true;
+export const revalidate = 0;
 
 function normalizeSlug(value: string) {
   return decodeURIComponent(value)
@@ -30,8 +31,9 @@ export async function generateMetadata({ params }: PageProps) {
   const rawSlug = decodeURIComponent(params.slug);
   const normalizedSlug = normalizeSlug(rawSlug);
   const dbPost = await getBlogPostBySlug(rawSlug);
+  const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
-    dbPost ??
+    list.find((item) => normalizeSlug(item.slug) === normalizedSlug) ??
     blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
@@ -54,8 +56,9 @@ export default async function BlogPostPage({ params }: PageProps) {
   const rawSlug = decodeURIComponent(params.slug);
   const normalizedSlug = normalizeSlug(rawSlug);
   const dbPost = await getBlogPostBySlug(rawSlug);
+  const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
-    dbPost ??
+    list.find((item) => normalizeSlug(item.slug) === normalizedSlug) ??
     blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
