@@ -14,18 +14,24 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
-  const { searchParams } = new URL(request.url);
-  const slug = searchParams.get("slug");
-  if (!slug) {
-    return NextResponse.json({ ok: false }, { status: 400 });
+  try {
+    const { searchParams } = new URL(request.url);
+    const slug = searchParams.get("slug");
+    if (!slug) {
+      return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const result = await query<{ content: Record<string, unknown> }>(
+      "SELECT content FROM page_content WHERE slug = $1",
+      [slug]
+    );
+
+    return NextResponse.json({ ok: true, data: result.rows[0]?.content ?? null });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Database error";
+    return NextResponse.json({ ok: false, message }, { status: 500 });
   }
-
-  const result = await query<{ content: Record<string, unknown> }>(
-    "SELECT content FROM page_content WHERE slug = $1",
-    [slug]
-  );
-
-  return NextResponse.json({ ok: true, data: result.rows[0]?.content ?? null });
 }
 
 export async function PUT(request: Request) {
@@ -34,16 +40,22 @@ export async function PUT(request: Request) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
-  const body = (await request.json()) as PagePayload;
-  const slug = body.slug?.trim();
-  if (!slug || !body.content) {
-    return NextResponse.json({ ok: false }, { status: 400 });
+  try {
+    const body = (await request.json()) as PagePayload;
+    const slug = body.slug?.trim();
+    if (!slug || !body.content) {
+      return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    await query(
+      "INSERT INTO page_content (slug, content, updated_at) VALUES ($1, $2, NOW()) ON CONFLICT (slug) DO UPDATE SET content = EXCLUDED.content, updated_at = NOW()",
+      [slug, JSON.stringify(body.content)]
+    );
+
+    return NextResponse.json({ ok: true });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Database error";
+    return NextResponse.json({ ok: false, message }, { status: 500 });
   }
-
-  await query(
-    "INSERT INTO page_content (slug, content, updated_at) VALUES ($1, $2, NOW()) ON CONFLICT (slug) DO UPDATE SET content = EXCLUDED.content, updated_at = NOW()",
-    [slug, JSON.stringify(body.content)]
-  );
-
-  return NextResponse.json({ ok: true });
 }
