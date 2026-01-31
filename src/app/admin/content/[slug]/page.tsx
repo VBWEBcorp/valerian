@@ -8,7 +8,10 @@ import { pageDefaults, pageSchemas } from "@/lib/page-defaults";
 
 type Card = { title: string; text: string };
 
-type PageContent = Record<string, string | string[] | Card[]>;
+type PageContent = Record<
+  string,
+  string | string[] | readonly string[] | Card[] | readonly Card[]
+>;
 
 const pageTitles: Record<string, string> = {
   home: "Accueil",
@@ -37,7 +40,7 @@ export default function AdminContentPage() {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
   const schema = pageSchemas[slug];
-  const defaults = (pageDefaults as Record<string, PageContent>)[slug];
+  const defaults = (pageDefaults as unknown as Record<string, PageContent>)[slug];
   const [content, setContent] = useState<PageContent>(defaults ?? {});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
