@@ -8,6 +8,10 @@ type HeroProps = {
   bullets?: readonly string[];
   imageSrc?: string;
   imageAlt?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 };
 
 export function Hero({
@@ -16,6 +20,10 @@ export function Hero({
   bullets = [],
   imageSrc = "/hero.svg",
   imageAlt = "Aperçu de site moderne",
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
 }: HeroProps) {
   return (
     <section className="relative overflow-hidden pt-10 pb-24">
@@ -48,11 +56,14 @@ export function Hero({
             </ul>
           )}
           <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href={ctas.primary.href} className="bg-white text-slate-900">
-              {ctas.primary.label}
+            <ButtonLink
+              href={primaryHref ?? ctas.primary.href}
+              className="bg-white text-slate-900"
+            >
+              {primaryLabel ?? ctas.primary.label}
             </ButtonLink>
-            <ButtonLink href={ctas.secondary.href} variant="outline">
-              {ctas.secondary.label}
+            <ButtonLink href={secondaryHref ?? ctas.secondary.href} variant="outline">
+              {secondaryLabel ?? ctas.secondary.label}
             </ButtonLink>
           </div>
         </div>

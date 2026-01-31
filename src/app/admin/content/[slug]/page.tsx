@@ -241,32 +241,12 @@ export default function AdminContentPage() {
                             rows={3}
                             className="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
                           />
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = [...cards];
-                              updated.splice(index, 1);
-                              setContent({ ...content, [key]: updated });
-                            }}
-                            className="mt-3 text-xs font-semibold text-slate-500"
-                          >
-                            Supprimer
-                          </button>
                         </div>
                       ))}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setContent({
-                          ...content,
-                          [key]: [...cards, { title: "", text: "" }],
-                        })
-                      }
-                      className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-700"
-                    >
-                      Ajouter une carte
-                    </button>
+                    <p className="text-xs text-slate-500">
+                      Le nombre de cartes est fixe. Modifie seulement le texte.
+                    </p>
                   </div>
                 );
               }
@@ -297,29 +277,12 @@ export default function AdminContentPage() {
                               />
                             </div>
                           )}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = [...images];
-                              updated.splice(index, 1);
-                              setContent({ ...content, [key]: updated });
-                            }}
-                            className="text-xs font-semibold text-slate-500"
-                          >
-                            Supprimer
-                          </button>
                         </div>
                       ))}
                     </div>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setContent({ ...content, [key]: [...images, ""] })
-                      }
-                      className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-700"
-                    >
-                      Ajouter une image
-                    </button>
+                    <p className="text-xs text-slate-500">
+                      Le nombre d’images est fixe. Modifie seulement les URLs.
+                    </p>
                   </div>
                 );
               }

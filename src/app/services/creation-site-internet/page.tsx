@@ -93,9 +93,11 @@ export default async function CreationSitePage() {
                 {content.hero_subtitle}
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <ButtonLink href="/contact">Demander un devis</ButtonLink>
-                <ButtonLink href="/contact#calendrier" variant="outline">
-                  Planifier un appel
+                <ButtonLink href={content.hero_primary_href}>
+                  {content.hero_primary_label}
+                </ButtonLink>
+                <ButtonLink href={content.hero_secondary_href} variant="outline">
+                  {content.hero_secondary_label}
                 </ButtonLink>
               </div>
             </div>
@@ -224,6 +226,10 @@ export default async function CreationSitePage() {
       <CTASection
         title={content.cta_title}
         subtitle={content.cta_subtitle}
+        primaryLabel={content.cta_primary_label}
+        primaryHref={content.cta_primary_href}
+        secondaryLabel={content.cta_secondary_label}
+        secondaryHref={content.cta_secondary_href}
       />
     </>
   );

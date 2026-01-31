@@ -89,6 +89,10 @@ export default async function Home() {
         bullets={content.hero_bullets}
         imageSrc={content.hero_image_url}
         imageAlt="Textures abstraites violettes"
+        primaryLabel={content.hero_primary_label}
+        primaryHref={content.hero_primary_href}
+        secondaryLabel={content.hero_secondary_label}
+        secondaryHref={content.hero_secondary_href}
       />
 
       <Section className="pt-6">
@@ -407,6 +411,10 @@ export default async function Home() {
       <CTASection
         title={content.cta_title}
         subtitle={content.cta_subtitle}
+        primaryLabel={content.cta_primary_label}
+        primaryHref={content.cta_primary_href}
+        secondaryLabel={content.cta_secondary_label}
+        secondaryHref={content.cta_secondary_href}
       />
     </>
   );

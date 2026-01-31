@@ -4,9 +4,20 @@ import { ctas } from "@/lib/site";
 type CTASectionProps = {
   title: string;
   subtitle: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
 };
 
-export function CTASection({ title, subtitle }: CTASectionProps) {
+export function CTASection({
+  title,
+  subtitle,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+}: CTASectionProps) {
   return (
     <section className="py-16">
       <div className="mx-auto w-full max-w-6xl px-6">
@@ -15,17 +26,17 @@ export function CTASection({ title, subtitle }: CTASectionProps) {
           <p className="mt-3 text-white/90">{subtitle}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink
-              href={ctas.primary.href}
+              href={primaryHref ?? ctas.primary.href}
               className="bg-white text-slate-900 hover:bg-white/90"
             >
-              {ctas.primary.label}
+              {primaryLabel ?? ctas.primary.label}
             </ButtonLink>
             <ButtonLink
-              href={ctas.secondary.href}
+              href={secondaryHref ?? ctas.secondary.href}
               variant="outline"
               className="border-white text-white hover:bg-white/10"
             >
-              {ctas.secondary.label}
+              {secondaryLabel ?? ctas.secondary.label}
             </ButtonLink>
           </div>
         </div>

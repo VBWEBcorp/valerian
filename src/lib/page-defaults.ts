@@ -15,6 +15,10 @@ export const pageDefaults = {
       "Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable.",
     hero_image_url:
       "https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1600&q=80",
+    hero_primary_label: "Demander un devis",
+    hero_primary_href: "/contact",
+    hero_secondary_label: "Planifier un appel",
+    hero_secondary_href: "/contact#calendrier",
     hero_bullets: [
       "Positionnement clair et messages orientés décisions",
       "Architecture SEO pensée pour générer des leads",
@@ -60,6 +64,10 @@ export const pageDefaults = {
     cta_title: "Prêt à améliorer votre acquisition ?",
     cta_subtitle:
       "Parlez-nous de votre projet et recevez un plan d’action clair sous 48h.",
+    cta_primary_label: "Demander un devis",
+    cta_primary_href: "/contact",
+    cta_secondary_label: "Planifier un appel",
+    cta_secondary_href: "/contact#calendrier",
   },
   creation: {
     hero_title:
@@ -67,6 +75,10 @@ export const pageDefaults = {
     hero_subtitle:
       "Nous concevons des sites rapides, structurés et orientés conversion pour transformer vos visiteurs en prospects qualifiés.",
     hero_image_url: "/hero.svg",
+    hero_primary_label: "Demander un devis",
+    hero_primary_href: "/contact",
+    hero_secondary_label: "Planifier un appel",
+    hero_secondary_href: "/contact#calendrier",
     feature_cards: [
       {
         title: "Positionnement clair",
@@ -157,6 +169,10 @@ export const pageDefaults = {
     ],
     cta_title: "Un site qui reflète votre niveau de service.",
     cta_subtitle: "Partagez vos objectifs et recevez une proposition claire.",
+    cta_primary_label: "Demander un devis",
+    cta_primary_href: "/contact",
+    cta_secondary_label: "Planifier un appel",
+    cta_secondary_href: "/contact#calendrier",
   },
   seo: {
     hero_title:
@@ -164,6 +180,10 @@ export const pageDefaults = {
     hero_subtitle:
       "Nous activons les 3 piliers du SEO : technique, contenu et autorité. Objectif : des positions durables et des leads qualifiés.",
     hero_image_url: "/process.svg",
+    hero_primary_label: "Demander un devis",
+    hero_primary_href: "/contact",
+    hero_secondary_label: "Planifier un appel",
+    hero_secondary_href: "/contact#calendrier",
     pillars: [
       {
         title: "Technique solide",
@@ -253,6 +273,10 @@ export const pageDefaults = {
     ],
     cta_title: "Prêt à structurer votre visibilité SEO ?",
     cta_subtitle: "Obtenez un plan d’action clair et priorisé.",
+    cta_primary_label: "Demander un devis",
+    cta_primary_href: "/contact",
+    cta_secondary_label: "Planifier un appel",
+    cta_secondary_href: "/contact#calendrier",
   },
   about: {
     hero_title: "Une agence boutique pour des décisions rapides et efficaces.",
@@ -285,6 +309,10 @@ export const pageDefaults = {
     ],
     cta_title: "Vous voulez travailler avec un partenaire fiable ?",
     cta_subtitle: "Présentez votre projet et recevez un retour précis.",
+    cta_primary_label: "Demander un devis",
+    cta_primary_href: "/contact",
+    cta_secondary_label: "Planifier un appel",
+    cta_secondary_href: "/contact#calendrier",
   },
   contact: {
     hero_title: "Parlez-nous de votre projet.",
@@ -332,17 +360,29 @@ export const pageSchemas: Record<string, PageSchema> = {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
     hero_image_url: { type: "image", label: "Image principale (URL)" },
+    hero_primary_label: { type: "text", label: "Bouton principal - texte" },
+    hero_primary_href: { type: "text", label: "Bouton principal - lien" },
+    hero_secondary_label: { type: "text", label: "Bouton secondaire - texte" },
+    hero_secondary_href: { type: "text", label: "Bouton secondaire - lien" },
     hero_bullets: { type: "stringList", label: "Bullets (1 par ligne)" },
     value_props: { type: "cardList", label: "Cartes “Ce que vous obtenez”" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
     inspiration_images: { type: "imageList", label: "Images inspiration (URLs)" },
     cta_title: { type: "text", label: "CTA titre" },
     cta_subtitle: { type: "textarea", label: "CTA sous-titre" },
+    cta_primary_label: { type: "text", label: "CTA bouton principal - texte" },
+    cta_primary_href: { type: "text", label: "CTA bouton principal - lien" },
+    cta_secondary_label: { type: "text", label: "CTA bouton secondaire - texte" },
+    cta_secondary_href: { type: "text", label: "CTA bouton secondaire - lien" },
   },
   creation: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
     hero_image_url: { type: "image", label: "Image principale (URL)" },
+    hero_primary_label: { type: "text", label: "Bouton principal - texte" },
+    hero_primary_href: { type: "text", label: "Bouton principal - lien" },
+    hero_secondary_label: { type: "text", label: "Bouton secondaire - texte" },
+    hero_secondary_href: { type: "text", label: "Bouton secondaire - lien" },
     feature_cards: { type: "cardList", label: "Cartes bénéfices" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
     deliverables: { type: "stringList", label: "Livrables" },
@@ -350,11 +390,19 @@ export const pageSchemas: Record<string, PageSchema> = {
     faq: { type: "cardList", label: "FAQ" },
     cta_title: { type: "text", label: "CTA titre" },
     cta_subtitle: { type: "textarea", label: "CTA sous-titre" },
+    cta_primary_label: { type: "text", label: "CTA bouton principal - texte" },
+    cta_primary_href: { type: "text", label: "CTA bouton principal - lien" },
+    cta_secondary_label: { type: "text", label: "CTA bouton secondaire - texte" },
+    cta_secondary_href: { type: "text", label: "CTA bouton secondaire - lien" },
   },
   seo: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
     hero_image_url: { type: "image", label: "Image principale (URL)" },
+    hero_primary_label: { type: "text", label: "Bouton principal - texte" },
+    hero_primary_href: { type: "text", label: "Bouton principal - lien" },
+    hero_secondary_label: { type: "text", label: "Bouton secondaire - texte" },
+    hero_secondary_href: { type: "text", label: "Bouton secondaire - lien" },
     pillars: { type: "cardList", label: "Piliers SEO" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
     results: { type: "stringList", label: "Résultats attendus" },
@@ -362,6 +410,10 @@ export const pageSchemas: Record<string, PageSchema> = {
     faq: { type: "cardList", label: "FAQ" },
     cta_title: { type: "text", label: "CTA titre" },
     cta_subtitle: { type: "textarea", label: "CTA sous-titre" },
+    cta_primary_label: { type: "text", label: "CTA bouton principal - texte" },
+    cta_primary_href: { type: "text", label: "CTA bouton principal - lien" },
+    cta_secondary_label: { type: "text", label: "CTA bouton secondaire - texte" },
+    cta_secondary_href: { type: "text", label: "CTA bouton secondaire - lien" },
   },
   about: {
     hero_title: { type: "text", label: "Titre principal" },
@@ -373,6 +425,10 @@ export const pageSchemas: Record<string, PageSchema> = {
     differentiators: { type: "cardList", label: "Différenciants" },
     cta_title: { type: "text", label: "CTA titre" },
     cta_subtitle: { type: "textarea", label: "CTA sous-titre" },
+    cta_primary_label: { type: "text", label: "CTA bouton principal - texte" },
+    cta_primary_href: { type: "text", label: "CTA bouton principal - lien" },
+    cta_secondary_label: { type: "text", label: "CTA bouton secondaire - texte" },
+    cta_secondary_href: { type: "text", label: "CTA bouton secondaire - lien" },
   },
   contact: {
     hero_title: { type: "text", label: "Titre principal" },

@@ -125,6 +125,10 @@ export default async function AboutPage() {
       <CTASection
         title={content.cta_title}
         subtitle={content.cta_subtitle}
+        primaryLabel={content.cta_primary_label}
+        primaryHref={content.cta_primary_href}
+        secondaryLabel={content.cta_secondary_label}
+        secondaryHref={content.cta_secondary_href}
       />
     </>
   );
