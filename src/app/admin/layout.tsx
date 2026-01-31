@@ -21,11 +21,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const isContentRoute = pathname?.startsWith("/admin/content");
 
   async function handleLogout() {
     setLoading(true);
     await fetch("/api/auth/logout", { method: "POST" });
     router.push("/admin");
+  }
+
+  if (!isContentRoute) {
+    return <>{children}</>;
   }
 
   return (

@@ -45,18 +45,31 @@ export default function AdminContentPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!schema || !defaults) return;
     async function load() {
-      const response = await fetch(`/api/content/page?slug=${slug}`);
-      if (response.status === 401) {
-        router.push("/admin");
-        return;
+      try {
+        const response = await fetch(`/api/content/page?slug=${slug}`);
+        if (response.status === 401) {
+          router.push("/admin");
+          return;
+        }
+        if (!response.ok) {
+          setError(
+            "Impossible de charger le contenu. Vérifie que la table page_content est créée dans Neon."
+          );
+          setLoading(false);
+          return;
+        }
+        const data = await response.json();
+        setContent({ ...defaults, ...(data.data ?? {}) });
+        setLoading(false);
+      } catch {
+        setError("Erreur réseau. Réessaie dans quelques secondes.");
+        setLoading(false);
       }
-      const data = await response.json();
-      setContent({ ...defaults, ...(data.data ?? {}) });
-      setLoading(false);
     }
     load();
   }, [slug, schema, defaults, router]);
@@ -105,6 +118,11 @@ export default function AdminContentPage() {
             Modifie les contenus de cette page. Les champs non remplis garderont la valeur
             par défaut.
           </p>
+          {error && (
+            <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </div>
+          )}
 
           <div className="mt-8 space-y-6">
             {Object.entries(schema).map(([key, field]) => {
