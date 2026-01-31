@@ -99,13 +99,21 @@ export default async function CreationSitePage() {
                 </ButtonLink>
               </div>
             </div>
-            <Image
-              src="/hero.svg"
-              alt="Création de site internet"
-              width={520}
-              height={420}
-              className="card card-hover rounded-3xl p-8"
-            />
+            {content.hero_image_url.startsWith("http") ? (
+              <img
+                src={content.hero_image_url}
+                alt="Création de site internet"
+                className="card card-hover rounded-3xl p-8"
+              />
+            ) : (
+              <Image
+                src={content.hero_image_url}
+                alt="Création de site internet"
+                width={520}
+                height={420}
+                className="card card-hover rounded-3xl p-8"
+              />
+            )}
           </div>
         </Container>
       </Section>

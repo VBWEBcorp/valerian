@@ -58,13 +58,21 @@ export default async function RealisationsPage() {
               {content.hero_subtitle}
               </p>
             </div>
-            <Image
-              src="/case-study.svg"
-              alt="Études de cas Valérian Digital"
-              width={520}
-              height={420}
-              className="card card-hover rounded-3xl p-8"
-            />
+            {content.hero_image_url.startsWith("http") ? (
+              <img
+                src={content.hero_image_url}
+                alt="Études de cas Valérian Digital"
+                className="card card-hover rounded-3xl p-8"
+              />
+            ) : (
+              <Image
+                src={content.hero_image_url}
+                alt="Études de cas Valérian Digital"
+                width={520}
+                height={420}
+                className="card card-hover rounded-3xl p-8"
+              />
+            )}
           </div>
         </Container>
       </Section>

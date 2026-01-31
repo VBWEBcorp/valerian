@@ -142,13 +142,21 @@ export default async function SeoServicePage() {
                 </ButtonLink>
               </div>
             </div>
-            <Image
-              src="/process.svg"
-              alt="Stratégie SEO"
-              width={520}
-              height={420}
-              className="card card-hover rounded-3xl p-8"
-            />
+            {content.hero_image_url.startsWith("http") ? (
+              <img
+                src={content.hero_image_url}
+                alt="Stratégie SEO"
+                className="card card-hover rounded-3xl p-8"
+              />
+            ) : (
+              <Image
+                src={content.hero_image_url}
+                alt="Stratégie SEO"
+                width={520}
+                height={420}
+                className="card card-hover rounded-3xl p-8"
+              />
+            )}
           </div>
         </Container>
       </Section>

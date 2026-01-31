@@ -57,13 +57,21 @@ export default async function AboutPage() {
                 {content.hero_subtitle}
               </p>
             </div>
-            <Image
-              src="/about.svg"
-              alt="À propos de Valérian Digital"
-              width={520}
-              height={420}
-              className="card card-hover rounded-3xl p-8"
-            />
+            {content.hero_image_url.startsWith("http") ? (
+              <img
+                src={content.hero_image_url}
+                alt="À propos de Valérian Digital"
+                className="card card-hover rounded-3xl p-8"
+              />
+            ) : (
+              <Image
+                src={content.hero_image_url}
+                alt="À propos de Valérian Digital"
+                width={520}
+                height={420}
+                className="card card-hover rounded-3xl p-8"
+              />
+            )}
           </div>
         </Container>
       </Section>

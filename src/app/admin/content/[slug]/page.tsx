@@ -36,6 +36,11 @@ function parseCardList(value: unknown): Card[] {
     .filter((item) => item.title || item.text);
 }
 
+function parseImageList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.map((item) => String(item ?? "")).filter(Boolean);
+}
+
 export default function AdminContentPage() {
   const { slug } = useParams<{ slug: string }>();
   const router = useRouter();
@@ -141,6 +146,31 @@ export default function AdminContentPage() {
                   </div>
                 );
               }
+              if (field.type === "image") {
+                const url = String(value ?? "");
+                return (
+                  <div key={key} className="space-y-3">
+                    <label className="text-sm font-semibold">{field.label}</label>
+                    <input
+                      value={url}
+                      onChange={(event) =>
+                        setContent({ ...content, [key]: event.target.value })
+                      }
+                      placeholder="https://..."
+                      className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                    />
+                    {url && (
+                      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                        <img
+                          src={url}
+                          alt=""
+                          className="h-48 w-full object-cover"
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              }
               if (field.type === "textarea") {
                 return (
                   <div key={key} className="space-y-2">
@@ -211,9 +241,85 @@ export default function AdminContentPage() {
                             rows={3}
                             className="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
                           />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = [...cards];
+                              updated.splice(index, 1);
+                              setContent({ ...content, [key]: updated });
+                            }}
+                            className="mt-3 text-xs font-semibold text-slate-500"
+                          >
+                            Supprimer
+                          </button>
                         </div>
                       ))}
                     </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setContent({
+                          ...content,
+                          [key]: [...cards, { title: "", text: "" }],
+                        })
+                      }
+                      className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-700"
+                    >
+                      Ajouter une carte
+                    </button>
+                  </div>
+                );
+              }
+              if (field.type === "imageList") {
+                const images = parseImageList(value);
+                return (
+                  <div key={key} className="space-y-3">
+                    <label className="text-sm font-semibold">{field.label}</label>
+                    <div className="space-y-3">
+                      {images.map((url, index) => (
+                        <div key={`${key}-${index}`} className="space-y-2">
+                          <input
+                            value={url}
+                            onChange={(event) => {
+                              const updated = [...images];
+                              updated[index] = event.target.value;
+                              setContent({ ...content, [key]: updated });
+                            }}
+                            placeholder="https://..."
+                            className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                          />
+                          {url && (
+                            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                              <img
+                                src={url}
+                                alt=""
+                                className="h-40 w-full object-cover"
+                              />
+                            </div>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = [...images];
+                              updated.splice(index, 1);
+                              setContent({ ...content, [key]: updated });
+                            }}
+                            className="text-xs font-semibold text-slate-500"
+                          >
+                            Supprimer
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setContent({ ...content, [key]: [...images, ""] })
+                      }
+                      className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-700"
+                    >
+                      Ajouter une image
+                    </button>
                   </div>
                 );
               }

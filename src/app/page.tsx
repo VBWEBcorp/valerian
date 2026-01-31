@@ -87,7 +87,7 @@ export default async function Home() {
         title={content.hero_title}
         subtitle={content.hero_subtitle}
         bullets={content.hero_bullets}
-        imageSrc="https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1600&q=80"
+        imageSrc={content.hero_image_url}
         imageAlt="Textures abstraites violettes"
       />
 
@@ -175,28 +175,13 @@ export default async function Home() {
             </h2>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {[
-              {
-                src: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=900&q=80",
-                alt: "Dégradé lumineux mauve",
-              },
-              {
-                src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
-                alt: "Jeu de lumière abstrait",
-              },
-              {
-                src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
-                alt: "Texture lumineuse abstraite",
-              },
-            ].map((image) => (
-              <div key={image.src} className="card card-hover overflow-hidden rounded-3xl p-3">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={900}
-                  height={600}
-                  sizes="(min-width: 1024px) 320px, 100vw"
+            {content.inspiration_images.map((src, index) => (
+              <div key={`${src}-${index}`} className="card card-hover overflow-hidden rounded-3xl p-3">
+                <img
+                  src={src}
+                  alt={`Inspiration ${index + 1}`}
                   className="h-64 w-full rounded-2xl object-cover"
+                  loading="lazy"
                 />
               </div>
             ))}

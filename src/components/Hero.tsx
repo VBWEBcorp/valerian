@@ -60,15 +60,23 @@ export function Hero({
         <div className="relative -mt-10">
           <div className="card card-hover mx-auto max-w-4xl overflow-hidden rounded-3xl p-3">
             <div className="relative overflow-hidden rounded-2xl bg-white/70">
-              <Image
-                src={imageSrc}
-                alt={imageAlt}
-                width={960}
-                height={560}
-                sizes="(min-width: 1024px) 960px, 100vw"
-                className="h-auto w-full object-cover"
-                priority
-              />
+              {imageSrc.startsWith("http") ? (
+                <img
+                  src={imageSrc}
+                  alt={imageAlt}
+                  className="h-auto w-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={imageSrc}
+                  alt={imageAlt}
+                  width={960}
+                  height={560}
+                  sizes="(min-width: 1024px) 960px, 100vw"
+                  className="h-auto w-full object-cover"
+                  priority
+                />
+              )}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-xl">
                   ▶

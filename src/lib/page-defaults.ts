@@ -2,7 +2,9 @@ export type PageSchemaField =
   | { type: "text"; label: string }
   | { type: "textarea"; label: string }
   | { type: "stringList"; label: string }
-  | { type: "cardList"; label: string };
+  | { type: "cardList"; label: string }
+  | { type: "image"; label: string }
+  | { type: "imageList"; label: string };
 
 export type PageSchema = Record<string, PageSchemaField>;
 
@@ -11,6 +13,8 @@ export const pageDefaults = {
     hero_title: "Sites web qui convertissent + SEO qui attire des clients",
     hero_subtitle:
       "Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable.",
+    hero_image_url:
+      "https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1600&q=80",
     hero_bullets: [
       "Positionnement clair et messages orientés décisions",
       "Architecture SEO pensée pour générer des leads",
@@ -48,6 +52,11 @@ export const pageDefaults = {
         text: "Suivi des performances et itérations mensuelles.",
       },
     ],
+    inspiration_images: [
+      "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
+    ],
     cta_title: "Prêt à améliorer votre acquisition ?",
     cta_subtitle:
       "Parlez-nous de votre projet et recevez un plan d’action clair sous 48h.",
@@ -57,6 +66,7 @@ export const pageDefaults = {
       "Un site vitrine premium qui clarifie votre offre et convertit.",
     hero_subtitle:
       "Nous concevons des sites rapides, structurés et orientés conversion pour transformer vos visiteurs en prospects qualifiés.",
+    hero_image_url: "/hero.svg",
     feature_cards: [
       {
         title: "Positionnement clair",
@@ -153,6 +163,7 @@ export const pageDefaults = {
       "Un SEO structuré pour attirer des clients, pas seulement du trafic.",
     hero_subtitle:
       "Nous activons les 3 piliers du SEO : technique, contenu et autorité. Objectif : des positions durables et des leads qualifiés.",
+    hero_image_url: "/process.svg",
     pillars: [
       {
         title: "Technique solide",
@@ -247,6 +258,7 @@ export const pageDefaults = {
     hero_title: "Une agence boutique pour des décisions rapides et efficaces.",
     hero_subtitle:
       "Valérian Digital accompagne les entreprises françaises qui veulent un site propre, rapide et un référencement naturel qui génère des leads.",
+    hero_image_url: "/about.svg",
     positioning_title:
       "L’interlocuteur senior qui relie design, tech et SEO.",
     positioning_text:
@@ -290,6 +302,7 @@ export const pageDefaults = {
   realisations: {
     hero_title: "Études de cas : sites et SEO qui servent la croissance.",
     hero_subtitle: "Quelques projets représentatifs pour des entreprises ambitieuses.",
+    hero_image_url: "/case-study.svg",
   },
   mentions: {
     title: "Mentions légales",
@@ -318,15 +331,18 @@ export const pageSchemas: Record<string, PageSchema> = {
   home: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
+    hero_image_url: { type: "image", label: "Image principale (URL)" },
     hero_bullets: { type: "stringList", label: "Bullets (1 par ligne)" },
     value_props: { type: "cardList", label: "Cartes “Ce que vous obtenez”" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
+    inspiration_images: { type: "imageList", label: "Images inspiration (URLs)" },
     cta_title: { type: "text", label: "CTA titre" },
     cta_subtitle: { type: "textarea", label: "CTA sous-titre" },
   },
   creation: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
+    hero_image_url: { type: "image", label: "Image principale (URL)" },
     feature_cards: { type: "cardList", label: "Cartes bénéfices" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
     deliverables: { type: "stringList", label: "Livrables" },
@@ -338,6 +354,7 @@ export const pageSchemas: Record<string, PageSchema> = {
   seo: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
+    hero_image_url: { type: "image", label: "Image principale (URL)" },
     pillars: { type: "cardList", label: "Piliers SEO" },
     method_steps: { type: "cardList", label: "Méthode en 4 étapes" },
     results: { type: "stringList", label: "Résultats attendus" },
@@ -349,6 +366,7 @@ export const pageSchemas: Record<string, PageSchema> = {
   about: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
+    hero_image_url: { type: "image", label: "Image principale (URL)" },
     positioning_title: { type: "text", label: "Titre positionnement" },
     positioning_text: { type: "textarea", label: "Texte positionnement" },
     values: { type: "stringList", label: "Valeurs" },
@@ -370,6 +388,7 @@ export const pageSchemas: Record<string, PageSchema> = {
   realisations: {
     hero_title: { type: "text", label: "Titre principal" },
     hero_subtitle: { type: "textarea", label: "Sous-titre" },
+    hero_image_url: { type: "image", label: "Image principale (URL)" },
   },
   mentions: {
     title: { type: "text", label: "Titre" },
