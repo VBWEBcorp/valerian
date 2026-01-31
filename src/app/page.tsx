@@ -18,6 +18,8 @@ import { ctas, site } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
 import { getPageContent } from "@/lib/page-content";
 import { pageDefaults } from "@/lib/page-defaults";
+import { blogPosts } from "@/content/blog";
+import { getBlogPosts } from "@/lib/blog";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -31,6 +33,15 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const content = await getPageContent("home", pageDefaults.home);
+  const posts = await getBlogPosts(3);
+  const blogList = posts.length
+    ? posts.map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        intent: post.intent,
+      }))
+    : blogPosts.slice(0, 3);
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -404,6 +415,48 @@ export default async function Home() {
               </div>
             </div>
             <Testimonials />
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                Blog
+              </p>
+              <h2 className="mt-3 text-3xl font-semibold text-slate-900">
+                3 articles utiles pour mieux convertir.
+              </h2>
+              <p className="mt-4 text-slate-600">
+                Conseils SEO, conversion et performance pour piloter votre
+                acquisition.
+              </p>
+            </div>
+            <ButtonLink href="/blog" variant="outline">
+              Voir le blog
+            </ButtonLink>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {blogList.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="card card-hover rounded-2xl p-6"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                  {post.intent}
+                </p>
+                <p className="mt-3 text-lg font-semibold text-slate-900">
+                  {post.title}
+                </p>
+                <p className="mt-2 text-sm text-slate-600">{post.excerpt}</p>
+                <p className="mt-4 text-sm font-semibold text-slate-900">
+                  Lire l’article →
+                </p>
+              </Link>
+            ))}
           </div>
         </Container>
       </Section>

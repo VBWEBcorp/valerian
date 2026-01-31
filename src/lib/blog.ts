@@ -15,12 +15,17 @@ export type BlogPost = {
   updated_at: string;
 };
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
+export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
   if (!process.env.DATABASE_URL) return [];
   try {
-    const result = await query<BlogPost>(
-      "SELECT * FROM blog_posts WHERE published = TRUE ORDER BY created_at DESC"
-    );
+    const result = limit
+      ? await query<BlogPost>(
+          "SELECT * FROM blog_posts WHERE published = TRUE ORDER BY created_at DESC LIMIT $1",
+          [limit]
+        )
+      : await query<BlogPost>(
+          "SELECT * FROM blog_posts WHERE published = TRUE ORDER BY created_at DESC"
+        );
     return result.rows;
   } catch {
     return [];
