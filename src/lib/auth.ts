@@ -1,12 +1,28 @@
 import { createHmac, timingSafeEqual } from "crypto";
 
-const sessionSecret = process.env.SESSION_SECRET;
-const adminEmail = process.env.ADMIN_EMAIL;
-const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
-const adminPasswordSalt = process.env.ADMIN_PASSWORD_SALT;
+type AuthEnv = {
+  sessionSecret: string;
+  adminEmail: string;
+  adminPasswordHash: string;
+  adminPasswordSalt: string;
+};
 
-if (!sessionSecret || !adminEmail || !adminPasswordHash || !adminPasswordSalt) {
-  throw new Error("Auth env vars are missing");
+function getAuthEnv(): AuthEnv {
+  const sessionSecret = process.env.SESSION_SECRET;
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH;
+  const adminPasswordSalt = process.env.ADMIN_PASSWORD_SALT;
+
+  if (!sessionSecret || !adminEmail || !adminPasswordHash || !adminPasswordSalt) {
+    throw new Error("Auth env vars are missing");
+  }
+
+  return {
+    sessionSecret,
+    adminEmail,
+    adminPasswordHash,
+    adminPasswordSalt,
+  };
 }
 
 type SessionPayload = {
@@ -15,6 +31,7 @@ type SessionPayload = {
 };
 
 export function verifyCredentials(email: string, password: string) {
+  const { adminEmail, adminPasswordHash, adminPasswordSalt } = getAuthEnv();
   if (email !== adminEmail) {
     return false;
   }
@@ -27,6 +44,7 @@ export function verifyCredentials(email: string, password: string) {
 }
 
 export function createSessionToken(email: string, ttlSeconds = 60 * 60 * 24 * 7) {
+  const { sessionSecret } = getAuthEnv();
   const payload: SessionPayload = {
     email,
     exp: Math.floor(Date.now() / 1000) + ttlSeconds,
@@ -37,6 +55,7 @@ export function createSessionToken(email: string, ttlSeconds = 60 * 60 * 24 * 7)
 }
 
 export function verifySessionToken(token: string | undefined) {
+  const { sessionSecret } = getAuthEnv();
   if (!token) return null;
   const [raw, sig] = token.split(".");
   if (!raw || !sig) return null;
