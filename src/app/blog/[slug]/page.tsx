@@ -7,6 +7,8 @@ import { JsonLd } from "@/components/JsonLd";
 import { createMetadata } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { blogPosts } from "@/content/blog";
+import { getBlogPostBySlug } from "@/lib/blog";
+import { renderMarkdown } from "@/lib/markdown";
 
 type PageProps = {
   params: { slug: string };
@@ -18,7 +20,8 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = params;
-  const post = blogPosts.find((item) => item.slug === slug);
+  const dbPost = await getBlogPostBySlug(slug);
+  const post = dbPost ?? blogPosts.find((item) => item.slug === slug);
 
   if (!post) {
     return createMetadata({
@@ -29,15 +32,17 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return createMetadata({
-    title: post.title,
-    description: post.excerpt,
+    title: "meta_title" in post ? post.meta_title : post.title,
+    description:
+      "meta_description" in post ? post.meta_description : post.excerpt,
     path: `/blog/${post.slug}`,
   });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = params;
-  const post = blogPosts.find((item) => item.slug === slug);
+  const dbPost = await getBlogPostBySlug(slug);
+  const post = dbPost ?? blogPosts.find((item) => item.slug === slug);
 
   if (!post) {
     notFound();
@@ -81,34 +86,46 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       <Section>
         <Container>
-          <article className="space-y-6 text-neutral-700">
-            {post.content.map((block, index) => {
-              if (block.type === "h2") {
+          {"content_markdown" in post ? (
+            <article
+              className="prose prose-neutral max-w-none"
+              dangerouslySetInnerHTML={{
+                __html: renderMarkdown(post.content_markdown),
+              }}
+            />
+          ) : (
+            <article className="space-y-6 text-neutral-700">
+              {post.content.map((block, index) => {
+                if (block.type === "h2") {
+                  return (
+                    <h2
+                      key={`${block.type}-${index}`}
+                      className="pt-6 text-2xl font-semibold text-neutral-900"
+                    >
+                      {block.value as string}
+                    </h2>
+                  );
+                }
+                if (block.type === "ul") {
+                  return (
+                    <ul
+                      key={`${block.type}-${index}`}
+                      className="list-disc space-y-2 pl-6"
+                    >
+                      {(block.value as string[]).map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  );
+                }
                 return (
-                  <h2
-                    key={`${block.type}-${index}`}
-                    className="pt-6 text-2xl font-semibold text-neutral-900"
-                  >
+                  <p key={`${block.type}-${index}`}>
                     {block.value as string}
-                  </h2>
+                  </p>
                 );
-              }
-              if (block.type === "ul") {
-                return (
-                  <ul key={`${block.type}-${index}`} className="list-disc space-y-2 pl-6">
-                    {(block.value as string[]).map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                );
-              }
-              return (
-                <p key={`${block.type}-${index}`}>
-                  {block.value as string}
-                </p>
-              );
-            })}
-          </article>
+              })}
+            </article>
+          )}
         </Container>
       </Section>
 

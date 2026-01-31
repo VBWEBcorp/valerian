@@ -9,6 +9,7 @@ import { site } from "@/lib/site";
 import { getPageContent } from "@/lib/page-content";
 import { pageDefaults } from "@/lib/page-defaults";
 import { blogPosts } from "@/content/blog";
+import { getBlogPosts } from "@/lib/blog";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -22,6 +23,15 @@ export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const content = await getPageContent("blog", pageDefaults.blog);
+  const posts = await getBlogPosts();
+  const list = posts.length
+    ? posts.map((post) => ({
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        intent: "Article",
+      }))
+    : blogPosts;
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Blog", href: "/blog" },
@@ -62,7 +72,7 @@ export default async function BlogPage() {
       <Section>
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
-            {blogPosts.map((post) => (
+            {list.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}

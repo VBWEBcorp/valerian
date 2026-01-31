@@ -9,7 +9,7 @@ const pages = [
   { slug: "creation", label: "Création site" },
   { slug: "seo", label: "SEO" },
   { slug: "realisations", label: "Réalisations" },
-  { slug: "blog", label: "Blog" },
+  { slug: "blog", label: "Blog (page)" },
   { slug: "about", label: "À propos" },
   { slug: "contact", label: "Contact" },
   { slug: "mentions", label: "Mentions légales" },
@@ -21,7 +21,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const isContentRoute = pathname?.startsWith("/admin/content");
+  const isContentRoute =
+    pathname?.startsWith("/admin/content") || pathname?.startsWith("/admin/blog");
 
   async function handleLogout() {
     setLoading(true);
@@ -60,6 +61,21 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                 );
               })}
             </nav>
+            <div className="mt-6 border-t border-slate-200 pt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+                Blog
+              </p>
+              <Link
+                href="/admin/blog"
+                className={`mt-3 block rounded-lg px-3 py-2 text-sm transition ${
+                  pathname === "/admin/blog"
+                    ? "bg-neutral-900 text-white"
+                    : "text-slate-700 hover:bg-white"
+                }`}
+              >
+                Articles
+              </Link>
+            </div>
           </aside>
           <div className="self-start space-y-6">
             <div className="flex items-center justify-between">
