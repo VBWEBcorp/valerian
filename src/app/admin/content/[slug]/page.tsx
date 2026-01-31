@@ -129,7 +129,7 @@ export default function AdminContentPage() {
             </div>
           )}
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-8 space-y-8">
             {Object.entries(schema).map(([key, field]) => {
               const value = content[key];
               if (field.type === "text") {
@@ -143,7 +143,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       placeholder={isHrefField ? "/contact ou https://..." : ""}
-                      className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                     />
                     {isHrefField && (
                       <p className="text-xs text-slate-500">
@@ -165,7 +165,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       placeholder="https://..."
-                      className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                     />
                     <p className="text-xs text-slate-500">
                       Colle une URL d’image (https://...). Tu peux remplacer
@@ -193,7 +193,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       rows={3}
-                      className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                     />
                   </div>
                 );
@@ -216,7 +216,7 @@ export default function AdminContentPage() {
                         })
                       }
                       rows={4}
-                      className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                     />
                   </div>
                 );
@@ -230,7 +230,7 @@ export default function AdminContentPage() {
                       {cards.map((card, index) => (
                         <div
                           key={`${key}-${index}`}
-                          className="rounded-2xl border border-slate-200 bg-white/80 p-4"
+                          className="rounded-2xl border border-slate-200 bg-white p-4"
                         >
                           <input
                             placeholder="Titre"
@@ -278,7 +278,7 @@ export default function AdminContentPage() {
                               setContent({ ...content, [key]: updated });
                             }}
                             placeholder="https://..."
-                            className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
+                            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                           />
                           {url && (
                             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
