@@ -5,7 +5,7 @@ import { ctas } from "@/lib/site";
 type HeroProps = {
   title: string;
   subtitle: string;
-  bullets?: string[];
+  bullets?: readonly string[];
   imageSrc?: string;
   imageAlt?: string;
 };
