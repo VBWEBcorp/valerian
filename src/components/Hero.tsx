@@ -6,9 +6,17 @@ type HeroProps = {
   title: string;
   subtitle: string;
   bullets?: string[];
+  imageSrc?: string;
+  imageAlt?: string;
 };
 
-export function Hero({ title, subtitle, bullets = [] }: HeroProps) {
+export function Hero({
+  title,
+  subtitle,
+  bullets = [],
+  imageSrc = "/hero.svg",
+  imageAlt = "Aperçu de site moderne",
+}: HeroProps) {
   return (
     <section className="relative overflow-hidden pt-10 pb-24">
       <div className="pointer-events-none absolute inset-0">
@@ -53,10 +61,11 @@ export function Hero({ title, subtitle, bullets = [] }: HeroProps) {
           <div className="card card-hover mx-auto max-w-4xl overflow-hidden rounded-3xl p-3">
             <div className="relative overflow-hidden rounded-2xl bg-white/70">
               <Image
-                src="/hero.svg"
-                alt="Aperçu de site moderne"
+                src={imageSrc}
+                alt={imageAlt}
                 width={960}
                 height={560}
+                sizes="(min-width: 1024px) 960px, 100vw"
                 className="h-auto w-full object-cover"
                 priority
               />

@@ -51,6 +51,37 @@ Le contenu est géré dans `src/content` :
 - Sitemap + robots
 - JSON-LD : Organization, WebSite, Service, FAQ, Breadcrumbs
 
+## Mini CMS (Neon)
+
+Ce projet inclut un mini CMS pour modifier le contenu de l’accueil via `/admin`.
+
+### 1) Créer la base Neon
+
+- Crée une base sur https://neon.tech
+- Récupère `DATABASE_URL`
+- Exécute le script `sql/home_content.sql` dans l’éditeur SQL Neon
+
+### 2) Variables d’environnement (Netlify ou .env.local)
+
+```
+DATABASE_URL=postgresql://...
+ADMIN_EMAIL=contact@valerian-digital.fr
+ADMIN_PASSWORD_SALT=change-me
+ADMIN_PASSWORD_HASH=...
+SESSION_SECRET=change-me-long
+```
+
+### 3) Générer le hash du mot de passe
+
+```
+node -e "const crypto=require('crypto');const salt='change-me';const pass='mon-mot-de-passe';console.log(crypto.createHmac('sha256', salt).update(pass).digest('hex'));"
+```
+
+### 4) Accès
+
+- Login : `/admin`
+- Édition accueil : `/admin/home`
+
 ## Scripts utiles
 
 ```bash

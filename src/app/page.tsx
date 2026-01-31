@@ -16,6 +16,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { JsonLd } from "@/components/JsonLd";
 import { ctas, site } from "@/lib/site";
 import { createMetadata } from "@/lib/seo";
+import { getHomeContent } from "@/lib/home-content";
 
 export const generateMetadata = () =>
   createMetadata({
@@ -25,7 +26,50 @@ export const generateMetadata = () =>
     path: "/",
   });
 
-export default function Home() {
+export default async function Home() {
+  const fallbackContent = {
+    hero_title: "Sites web qui convertissent + SEO qui attire des clients",
+    hero_subtitle:
+      "Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable.",
+    hero_bullets: [
+      "Positionnement clair et messages orientés décisions",
+      "Architecture SEO pensée pour générer des leads",
+      "Accompagnement simple, transparent, efficace",
+    ],
+    value_props: [
+      {
+        title: "Clarté stratégique",
+        text: "Un message net, une offre lisible, des pages qui guident.",
+      },
+      {
+        title: "Performance fluide",
+        text: "Rapidité, mobile-first, expérience premium sans friction.",
+      },
+      {
+        title: "Acquisition durable",
+        text: "SEO structuré pour générer des leads qualifiés.",
+      },
+    ],
+    method_steps: [
+      {
+        title: "1. Diagnostic",
+        text: "Analyse de l’offre, du marché et des freins actuels.",
+      },
+      {
+        title: "2. Structure",
+        text: "Architecture des pages, messages et parcours clients.",
+      },
+      {
+        title: "3. Production",
+        text: "Design, développement, contenus et SEO technique.",
+      },
+      {
+        title: "4. Pilotage",
+        text: "Suivi des performances et itérations mensuelles.",
+      },
+    ],
+  };
+  const content = (await getHomeContent()) ?? fallbackContent;
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -79,32 +123,17 @@ export default function Home() {
       <JsonLd data={localBusinessSchema} />
 
       <Hero
-        title="Sites web qui convertissent + SEO qui attire des clients"
-        subtitle="Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable."
-        bullets={[
-          "Positionnement clair et messages orientés décisions",
-          "Architecture SEO pensée pour générer des leads",
-          "Accompagnement simple, transparent, efficace",
-        ]}
+        title={content.hero_title}
+        subtitle={content.hero_subtitle}
+        bullets={content.hero_bullets}
+        imageSrc="https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1600&q=80"
+        imageAlt="Textures abstraites violettes"
       />
 
       <Section className="pt-6">
         <Container>
           <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                title: "Clarté stratégique",
-                text: "Un message net, une offre lisible, des pages qui guident.",
-              },
-              {
-                title: "Performance fluide",
-                text: "Rapidité, mobile-first, expérience premium sans friction.",
-              },
-              {
-                title: "Acquisition durable",
-                text: "SEO structuré pour générer des leads qualifiés.",
-              },
-            ].map((item) => (
+            {content.value_props.map((item) => (
               <div key={item.title} className="card card-hover rounded-2xl p-6">
                 <p className="text-sm font-semibold text-slate-900">
                   {item.title}
@@ -168,6 +197,46 @@ export default function Home() {
                 <button className="mt-6 text-sm font-semibold text-slate-900 underline">
                   Voir le détail
                 </button>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <div className="flex flex-col items-center gap-4 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
+              Inspiration visuelle
+            </p>
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Des visuels abstraits pour une identité premium.
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                src: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913?auto=format&fit=crop&w=900&q=80",
+                alt: "Dégradé lumineux mauve",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
+                alt: "Jeu de lumière abstrait",
+              },
+              {
+                src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
+                alt: "Texture lumineuse abstraite",
+              },
+            ].map((image) => (
+              <div key={image.src} className="card card-hover overflow-hidden rounded-3xl p-3">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={900}
+                  height={600}
+                  sizes="(min-width: 1024px) 320px, 100vw"
+                  className="h-64 w-full rounded-2xl object-cover"
+                />
               </div>
             ))}
           </div>
@@ -243,24 +312,7 @@ export default function Home() {
             <ButtonLink href={ctas.primary.href}>{ctas.primary.label}</ButtonLink>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-4">
-            {[
-              {
-                title: "1. Diagnostic",
-                text: "Analyse de l’offre, du marché et des freins actuels.",
-              },
-              {
-                title: "2. Structure",
-                text: "Architecture des pages, messages et parcours clients.",
-              },
-              {
-                title: "3. Production",
-                text: "Design, développement, contenus et SEO technique.",
-              },
-              {
-                title: "4. Pilotage",
-                text: "Suivi des performances et itérations mensuelles.",
-              },
-            ].map((step) => (
+            {content.method_steps.map((step) => (
               <div key={step.title} className="card card-hover rounded-2xl p-6">
                 <p className="text-sm font-semibold text-slate-900">
                   {step.title}
