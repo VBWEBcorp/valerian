@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 
 export function NavBar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/40 bg-white/70 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-black/5 bg-white/90 backdrop-blur">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="text-lg font-semibold tracking-tight text-slate-900">
           {site.name}

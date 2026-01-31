@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     <>
       <JsonLd data={breadcrumbSchema} />
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container className="space-y-6">
           <Breadcrumbs items={breadcrumbs} />
           <div>

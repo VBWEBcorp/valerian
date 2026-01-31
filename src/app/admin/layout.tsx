@@ -34,7 +34,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-white/60">
+    <div className="min-h-screen bg-white">
       <div className="mx-auto grid w-full max-w-6xl gap-8 px-6 py-10 md:grid-cols-[220px_1fr]">
         <aside className="card rounded-3xl p-6">
           <p className="text-sm font-semibold text-slate-900">Admin</p>
@@ -48,7 +48,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   href={href}
                   className={`block rounded-lg px-3 py-2 ${
                     isActive
-                      ? "bg-violet-100 text-violet-700"
+                      ? "bg-neutral-900 text-white"
                       : "text-slate-700 hover:bg-white"
                   }`}
                 >

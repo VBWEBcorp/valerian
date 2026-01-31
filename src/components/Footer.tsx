@@ -3,12 +3,12 @@ import { navigation, site, ctas } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/50 bg-white/70 backdrop-blur">
+    <footer className="border-t border-black/5 bg-white">
       <div className="mx-auto w-full max-w-6xl px-6 py-12">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div className="space-y-4">
-            <p className="text-lg font-semibold text-slate-900">{site.name}</p>
-            <p className="text-sm text-slate-600">{site.description}</p>
+          <p className="text-lg font-semibold text-slate-900">{site.name}</p>
+          <p className="text-sm text-slate-600">{site.description}</p>
             <div className="space-y-1 text-sm text-slate-600">
               <p>{site.address.street}</p>
               <p>

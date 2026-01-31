@@ -10,11 +10,11 @@ type ButtonLinkProps = {
 
 const variants: Record<NonNullable<ButtonLinkProps["variant"]>, string> = {
   primary:
-    "bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 hover:opacity-95 focus-visible:ring-violet-500",
+    "bg-neutral-900 text-white shadow-lg shadow-black/10 hover:bg-neutral-800 focus-visible:ring-neutral-900",
   secondary:
-    "bg-white/90 text-slate-900 border border-white/60 hover:bg-white focus-visible:ring-slate-300",
+    "bg-white text-slate-900 border border-slate-200 hover:border-slate-300 focus-visible:ring-slate-300",
   outline:
-    "border border-white/60 text-white hover:bg-white/10 focus-visible:ring-white/60",
+    "border border-slate-300 text-slate-900 hover:border-slate-400 hover:bg-white focus-visible:ring-slate-300",
 };
 
 export function ButtonLink({

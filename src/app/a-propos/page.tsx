@@ -42,7 +42,7 @@ export default async function AboutPage() {
     <>
       <JsonLd data={breadcrumbSchema} />
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container className="space-y-6">
           <Breadcrumbs items={breadcrumbs} />
           <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
@@ -107,7 +107,7 @@ export default async function AboutPage() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="grid gap-8 md:grid-cols-3">
             {content.differentiators.map((item) => (

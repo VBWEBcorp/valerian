@@ -110,7 +110,7 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -153,13 +153,13 @@ export default async function Home() {
                 text: "Contenus stratégiques pour une visibilité durable.",
               },
             ].map((item) => (
-              <div key={item.title} className="ticket-card">
-                <item.icon className="h-6 w-6 text-violet-500" />
+              <div key={item.title} className="card card-hover rounded-2xl p-6">
+                <item.icon className="h-6 w-6 text-slate-900" />
                 <p className="mt-6 text-lg font-semibold text-slate-900">
                   {item.title}
                 </p>
                 <p className="mt-2 text-sm text-slate-600">{item.text}</p>
-                <button className="mt-6 text-sm font-semibold text-slate-900 underline">
+                <button className="mt-6 text-sm font-semibold text-slate-700">
                   Voir le détail
                 </button>
               </div>
@@ -193,7 +193,7 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="grid gap-8 md:grid-cols-[1.1fr_0.9fr]">
             <div>
@@ -236,7 +236,7 @@ export default async function Home() {
                 },
               ].map((item) => (
                 <div key={item.title} className="card card-hover rounded-2xl p-5">
-                  <item.icon className="h-5 w-5 text-violet-600" />
+                  <item.icon className="h-5 w-5 text-slate-900" />
                   <p className="mt-3 text-sm font-semibold text-slate-900">
                     {item.title}
                   </p>
@@ -274,7 +274,7 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <Image
@@ -304,7 +304,7 @@ export default async function Home() {
                   "Décisions guidées par vos objectifs business",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-violet-500" />
+                    <CheckCircle2 className="h-4 w-4 text-slate-900" />
                     {item}
                   </li>
                 ))}
@@ -361,7 +361,7 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="grid gap-8 md:grid-cols-[0.8fr_1.2fr] md:items-center">
             <div>
@@ -392,7 +392,7 @@ export default async function Home() {
                     key={item.title}
                     className="card card-hover flex items-start gap-3 rounded-2xl p-5"
                   >
-                    <item.icon className="mt-1 h-5 w-5 text-violet-500" />
+                    <item.icon className="mt-1 h-5 w-5 text-slate-900" />
                     <div>
                       <p className="text-sm font-semibold text-slate-900">
                         {item.title}

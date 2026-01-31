@@ -21,9 +21,9 @@ export function CTASection({
   return (
     <section className="py-16">
       <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="rounded-3xl border border-white/40 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-8 py-12 text-white shadow-2xl shadow-purple-500/20 md:px-12">
+        <div className="rounded-3xl border border-black/10 bg-neutral-900 px-8 py-12 text-white md:px-12">
           <h2 className="text-3xl font-semibold">{title}</h2>
-          <p className="mt-3 text-white/90">{subtitle}</p>
+          <p className="mt-3 text-white/80">{subtitle}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink
               href={primaryHref ?? ctas.primary.href}

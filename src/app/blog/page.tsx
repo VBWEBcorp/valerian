@@ -42,7 +42,7 @@ export default async function BlogPage() {
     <>
       <JsonLd data={breadcrumbSchema} />
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container className="space-y-6">
           <Breadcrumbs items={breadcrumbs} />
           <div>

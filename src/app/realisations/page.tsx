@@ -43,7 +43,7 @@ export default async function RealisationsPage() {
     <>
       <JsonLd data={breadcrumbSchema} />
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container className="space-y-6">
           <Breadcrumbs items={breadcrumbs} />
           <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">

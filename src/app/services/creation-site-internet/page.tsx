@@ -78,7 +78,7 @@ export default async function CreationSitePage() {
       <JsonLd data={serviceSchema} />
       <JsonLd data={faqSchema} />
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container className="space-y-6">
           <Breadcrumbs items={breadcrumbs} />
           <div className="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
@@ -140,7 +140,7 @@ export default async function CreationSitePage() {
         </Container>
       </Section>
 
-      <Section className="bg-white/60">
+      <Section className="bg-white">
         <Container>
           <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr]">
             <div>

@@ -294,7 +294,7 @@ export default function AdminContentPage() {
             <button
               type="submit"
               disabled={saving}
-              className="rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-fuchsia-500 px-6 py-3 text-sm font-semibold text-white"
+              className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white hover:bg-neutral-800"
             >
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>
