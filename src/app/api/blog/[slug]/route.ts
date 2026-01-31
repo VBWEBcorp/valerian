@@ -4,6 +4,7 @@ import { query } from "@/lib/db";
 import { verifySessionToken } from "@/lib/auth";
 
 type UpdatePayload = {
+  slug?: string;
   title?: string;
   meta_title?: string;
   meta_description?: string;
@@ -13,6 +14,16 @@ type UpdatePayload = {
   content_markdown?: string;
   published?: boolean;
 };
+
+function normalizeSlug(value: string) {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 export async function GET(
   _request: Request,
@@ -42,9 +53,11 @@ export async function PUT(
 
   const { slug } = await params;
   const body = (await request.json()) as UpdatePayload;
+  const normalizedSlug = body.slug ? normalizeSlug(body.slug) : slug;
   await query(
-    "UPDATE blog_posts SET title = $1, meta_title = $2, meta_description = $3, excerpt = $4, intent = $5, cover_image_url = $6, content_markdown = $7, published = $8, updated_at = NOW() WHERE slug = $9",
+    "UPDATE blog_posts SET slug = $1, title = $2, meta_title = $3, meta_description = $4, excerpt = $5, intent = $6, cover_image_url = $7, content_markdown = $8, published = $9, updated_at = NOW() WHERE slug = $10",
     [
+      normalizedSlug,
       body.title ?? "",
       body.meta_title ?? "",
       body.meta_description ?? "",
@@ -57,7 +70,7 @@ export async function PUT(
     ]
   );
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, slug: normalizedSlug });
 }
 
 export async function DELETE(

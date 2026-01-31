@@ -88,9 +88,15 @@ export default function AdminBlogEditPage() {
               <label className="text-sm font-semibold">Slug</label>
               <input
                 value={form.slug}
-                disabled
-                className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm"
+                onChange={(event) =>
+                  setForm({ ...form, slug: event.target.value })
+                }
+                placeholder="ex: site-vitrine-qui-convertit"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
               />
+              <p className="mt-1 text-xs text-slate-500">
+                Utilise uniquement des lettres minuscules, chiffres et tirets.
+              </p>
             </div>
             <div>
               <label className="text-sm font-semibold">Titre</label>
