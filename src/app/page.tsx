@@ -26,6 +26,8 @@ export const generateMetadata = () =>
     path: "/",
   });
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const fallbackContent = {
     hero_title: "Sites web qui convertissent + SEO qui attire des clients",
