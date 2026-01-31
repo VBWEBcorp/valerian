@@ -15,11 +15,12 @@ type PageProps = {
 };
 
 export const dynamic = "force-dynamic";
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: PageProps) {
-  const { slug } = params;
+  const slug = decodeURIComponent(params.slug).toLowerCase();
   const dbPost = await getBlogPostBySlug(slug);
-  const post = dbPost ?? blogPosts.find((item) => item.slug === slug);
+  const post = dbPost ?? blogPosts.find((item) => item.slug.toLowerCase() === slug);
 
   if (!post) {
     return createMetadata({
@@ -38,9 +39,9 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
-  const { slug } = params;
+  const slug = decodeURIComponent(params.slug).toLowerCase();
   const dbPost = await getBlogPostBySlug(slug);
-  const post = dbPost ?? blogPosts.find((item) => item.slug === slug);
+  const post = dbPost ?? blogPosts.find((item) => item.slug.toLowerCase() === slug);
 
   if (!post) {
     notFound();

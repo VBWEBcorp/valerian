@@ -35,9 +35,10 @@ export async function getBlogPosts(limit?: number): Promise<BlogPost[]> {
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!process.env.DATABASE_URL) return null;
   try {
+    const normalizedSlug = slug.trim().toLowerCase();
     const result = await query<BlogPost>(
-      "SELECT * FROM blog_posts WHERE slug = $1 LIMIT 1",
-      [slug]
+      "SELECT * FROM blog_posts WHERE LOWER(slug) = LOWER($1) LIMIT 1",
+      [normalizedSlug]
     );
     return result.rows[0] ?? null;
   } catch {
