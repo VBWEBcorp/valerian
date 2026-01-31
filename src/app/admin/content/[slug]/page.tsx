@@ -133,6 +133,7 @@ export default function AdminContentPage() {
             {Object.entries(schema).map(([key, field]) => {
               const value = content[key];
               if (field.type === "text") {
+                const isHrefField = key.endsWith("_href");
                 return (
                   <div key={key} className="space-y-2">
                     <label className="text-sm font-semibold">{field.label}</label>
@@ -141,8 +142,15 @@ export default function AdminContentPage() {
                       onChange={(event) =>
                         setContent({ ...content, [key]: event.target.value })
                       }
+                      placeholder={isHrefField ? "/contact ou https://..." : ""}
                       className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
                     />
+                    {isHrefField && (
+                      <p className="text-xs text-slate-500">
+                        Tu peux mettre un lien interne (ex: /contact), un
+                        ancrage (#section) ou une URL complète.
+                      </p>
+                    )}
                   </div>
                 );
               }
@@ -159,6 +167,10 @@ export default function AdminContentPage() {
                       placeholder="https://..."
                       className="w-full rounded-xl border border-slate-200 bg-white/80 px-4 py-3 text-sm"
                     />
+                    <p className="text-xs text-slate-500">
+                      Colle une URL d’image (https://...). Tu peux remplacer
+                      l’image à tout moment.
+                    </p>
                     {url && (
                       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
                         <img
