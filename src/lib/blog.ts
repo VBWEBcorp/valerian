@@ -46,12 +46,12 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   if (!process.env.DATABASE_URL) return null;
   try {
     const normalizedSlug = normalizeSlug(slug);
-    const result = await query<BlogPost>("SELECT * FROM blog_posts");
-    return (
-      result.rows.find(
-        (post) => normalizeSlug(post.slug) === normalizedSlug
-      ) ?? null
+    const withSlash = `/${normalizedSlug}`;
+    const result = await query<BlogPost>(
+      "SELECT * FROM blog_posts WHERE LOWER(slug) IN (LOWER($1), LOWER($2), LOWER($3)) LIMIT 1",
+      [slug, normalizedSlug, withSlash]
     );
+    return result.rows[0] ?? null;
   } catch {
     return null;
   }

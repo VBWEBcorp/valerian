@@ -23,7 +23,7 @@ export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
   const content = await getPageContent("blog", pageDefaults.blog);
-  const posts = await getBlogPosts(3);
+  const posts = await getBlogPosts();
   const list = posts.length
     ? posts.map((post) => ({
         slug: post.slug,
@@ -31,7 +31,7 @@ export default async function BlogPage() {
         excerpt: post.excerpt,
         intent: post.intent,
       }))
-    : blogPosts.slice(0, 3);
+    : blogPosts;
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Blog", href: "/blog" },
