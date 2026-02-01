@@ -44,7 +44,7 @@ export default function AdminBlogListPage() {
   }
 
   return (
-    <Section>
+    <Section className="pt-4 pb-12 md:pt-6 md:pb-14">
       <Container>
         <div className="rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur">
           <div className="flex flex-wrap items-center justify-between gap-4">

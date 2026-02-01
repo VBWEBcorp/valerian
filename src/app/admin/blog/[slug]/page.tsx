@@ -73,7 +73,7 @@ export default function AdminBlogEditPage() {
   }
 
   return (
-    <Section>
+    <Section className="pt-4 pb-12 md:pt-6 md:pb-14">
       <Container>
         <form
           onSubmit={handleSave}
