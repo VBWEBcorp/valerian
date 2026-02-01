@@ -27,14 +27,14 @@ export function CTASection({
           <div className="mt-6 flex flex-wrap gap-3">
             <ButtonLink
               href={primaryHref ?? ctas.primary.href}
-              className="bg-white text-slate-900 hover:bg-white/90"
+              className="!bg-white !text-slate-900 hover:!bg-white/90 !border-white"
             >
               {primaryLabel ?? ctas.primary.label}
             </ButtonLink>
             <ButtonLink
               href={secondaryHref ?? ctas.secondary.href}
               variant="outline"
-              className="border-white text-white hover:bg-white/10"
+              className="!border-white !text-white hover:!bg-white/10 !bg-transparent"
             >
               {secondaryLabel ?? ctas.secondary.label}
             </ButtonLink>
