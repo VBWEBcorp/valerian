@@ -3,6 +3,7 @@ export type BlogPost = {
   title: string;
   excerpt: string;
   intent: string;
+  cover_image_url?: string;
   content: {
     type: "p" | "h2" | "ul";
     value: string | string[];
