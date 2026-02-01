@@ -35,19 +35,31 @@ function cleanSlug(value: string) {
   return value.replace(/^\/+/, "");
 }
 
+type BlogCard = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  intent: string;
+  cover_image_url?: string | null;
+};
+
 export default async function Home() {
   const content = await getPageContent("home", pageDefaults.home);
   const posts = await getBlogPosts(3);
-  const blogList = posts.length
+  const blogList: BlogCard[] = posts.length
     ? posts.map((post) => ({
         slug: cleanSlug(post.slug),
         title: post.title,
         excerpt: post.excerpt,
         intent: post.intent,
+        cover_image_url:
+          "cover_image_url" in post ? post.cover_image_url ?? null : null,
       }))
     : blogPosts.slice(0, 3).map((post) => ({
         ...post,
         slug: cleanSlug(post.slug),
+        cover_image_url:
+          "cover_image_url" in post ? post.cover_image_url ?? null : null,
       }));
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -452,7 +464,8 @@ export default async function Home() {
                 href={`/blog/${post.slug}`}
                 className="card card-hover overflow-hidden rounded-2xl p-0"
               >
-                {"cover_image_url" in post && post.cover_image_url ? (
+                {typeof post.cover_image_url === "string" &&
+                post.cover_image_url ? (
                   <img
                     src={post.cover_image_url}
                     alt={post.title}

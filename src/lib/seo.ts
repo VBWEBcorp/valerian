@@ -44,14 +44,13 @@ export function createMetadata({
       locale: "fr_FR",
       type: openGraphType,
       images: [{ url: image }],
-      article:
-        openGraphType === "article"
-          ? {
-              publishedTime: article?.publishedTime,
-              modifiedTime: article?.modifiedTime,
-              authors: article?.authors,
-            }
-          : undefined,
+      ...(openGraphType === "article"
+        ? {
+            publishedTime: article?.publishedTime,
+            modifiedTime: article?.modifiedTime,
+            authors: article?.authors,
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
