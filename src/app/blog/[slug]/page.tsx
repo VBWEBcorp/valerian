@@ -30,6 +30,9 @@ function normalizeSlug(value: string) {
 export async function generateMetadata({ params }: PageProps) {
   const rawSlug = decodeURIComponent(params.slug);
   const normalizedSlug = normalizeSlug(rawSlug);
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3',location:'src/app/blog/[slug]/page.tsx:generateMetadata',message:'metadata lookup',data:{rawSlug,normalizedSlug},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
   const dbPost = await getBlogPostBySlug(rawSlug);
   const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
@@ -55,6 +58,9 @@ export async function generateMetadata({ params }: PageProps) {
 export default async function BlogPostPage({ params }: PageProps) {
   const rawSlug = decodeURIComponent(params.slug);
   const normalizedSlug = normalizeSlug(rawSlug);
+  // #region agent log
+  fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3',location:'src/app/blog/[slug]/page.tsx:BlogPostPage:entry',message:'page entry',data:{rawSlug,normalizedSlug},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
   const dbPost = await getBlogPostBySlug(rawSlug);
   const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
@@ -62,6 +68,9 @@ export default async function BlogPostPage({ params }: PageProps) {
     blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H4',location:'src/app/blog/[slug]/page.tsx:BlogPostPage:notFound',message:'post not found',data:{rawSlug,normalizedSlug,dbPost:!!dbPost,listCount:list.length,hasFallback:blogPosts.some((item)=>normalizeSlug(item.slug)===normalizedSlug)},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     notFound();
   }
 

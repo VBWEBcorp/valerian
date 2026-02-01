@@ -47,14 +47,23 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   try {
     const normalizedSlug = normalizeSlug(slug);
     const withSlash = `/${normalizedSlug}`;
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'src/lib/blog.ts:getBlogPostBySlug:before-query',message:'lookup slug variants',data:{slug,normalizedSlug,withSlash},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     const result = await query<BlogPost>(
       "SELECT * FROM blog_posts WHERE LOWER(slug) IN (LOWER($1), LOWER($2), LOWER($3)) LIMIT 1",
       [slug, normalizedSlug, withSlash]
     );
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H1',location:'src/lib/blog.ts:getBlogPostBySlug:after-query',message:'primary query result',data:{rows:result.rows.length,matched:!!result.rows[0]},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     if (result.rows[0]) {
       return result.rows[0];
     }
     const fallback = await query<BlogPost>("SELECT * FROM blog_posts");
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H2',location:'src/lib/blog.ts:getBlogPostBySlug:fallback',message:'fallback query',data:{rows:fallback.rows.length},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     return (
       fallback.rows.find(
         (post) => normalizeSlug(post.slug) === normalizedSlug
