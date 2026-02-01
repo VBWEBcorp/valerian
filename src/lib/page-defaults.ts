@@ -10,9 +10,9 @@ export type PageSchema = Record<string, PageSchemaField>;
 
 export const pageDefaults = {
   home: {
-    hero_title: "Sites web qui convertissent + SEO qui attire des clients",
+    hero_title: "Sites web modernes qui convertissent",
     hero_subtitle:
-      "Nous aidons les TPE/PME à obtenir un site premium, rapide et clair, puis à le rendre visible avec un référencement naturel durable.",
+      "Nous créons des sites rapides, élégants et clairs, adaptés à votre secteur, avec une structure pensée pour générer des opportunités.",
     hero_image_url:
       "https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1600&q=80",
     hero_primary_label: "Demander un devis",
@@ -20,40 +20,40 @@ export const pageDefaults = {
     hero_secondary_label: "Planifier un appel",
     hero_secondary_href: "/contact#calendrier",
     hero_bullets: [
-      "Positionnement clair et messages orientés décisions",
-      "Architecture SEO pensée pour générer des leads",
-      "Accompagnement simple, transparent, efficace",
+      "Message clair et structuré dès la première lecture",
+      "Design premium et expérience fluide sur tous supports",
+      "Parcours orienté contact, devis ou réservation",
     ],
     value_props: [
       {
-        title: "Clarté stratégique",
-        text: "Un message net, une offre lisible, des pages qui guident.",
+        title: "Clarté du message",
+        text: "Une proposition simple à comprendre, qui rassure et convainc.",
       },
       {
-        title: "Performance fluide",
-        text: "Rapidité, mobile-first, expérience premium sans friction.",
+        title: "Expérience premium",
+        text: "Design moderne, mobile-first et performances solides.",
       },
       {
-        title: "Acquisition durable",
-        text: "SEO structuré pour générer des leads qualifiés.",
+        title: "Conversion maîtrisée",
+        text: "Des pages conçues pour générer des contacts qualifiés.",
       },
     ],
     method_steps: [
       {
-        title: "1. Diagnostic",
-        text: "Analyse de l’offre, du marché et des freins actuels.",
+        title: "1. Cadrage",
+        text: "Objectifs, positionnement, messages et structure.",
       },
       {
-        title: "2. Structure",
-        text: "Architecture des pages, messages et parcours clients.",
+        title: "2. Design",
+        text: "Maquettes modernes et parcours optimisés.",
       },
       {
         title: "3. Production",
-        text: "Design, développement, contenus et SEO technique.",
+        text: "Intégration responsive et contenus calibrés.",
       },
       {
-        title: "4. Pilotage",
-        text: "Suivi des performances et itérations mensuelles.",
+        title: "4. Mise en ligne",
+        text: "Tests, lancement et suivi des performances.",
       },
     ],
     inspiration_images: [
@@ -61,19 +61,18 @@ export const pageDefaults = {
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=80",
     ],
-    cta_title: "Prêt à améliorer votre acquisition ?",
+    cta_title: "Prêt à accélérer votre présence en ligne ?",
     cta_subtitle:
-      "Parlez-nous de votre projet et recevez un plan d’action clair sous 48h.",
+      "Parlez-nous de votre projet et recevez une proposition claire.",
     cta_primary_label: "Demander un devis",
     cta_primary_href: "/contact",
     cta_secondary_label: "Planifier un appel",
     cta_secondary_href: "/contact#calendrier",
   },
   creation: {
-    hero_title:
-      "Un site vitrine premium qui clarifie votre offre et convertit.",
+    hero_title: "Un site vitrine premium qui valorise votre activité.",
     hero_subtitle:
-      "Nous concevons des sites rapides, structurés et orientés conversion pour transformer vos visiteurs en prospects qualifiés.",
+      "Nous concevons des sites rapides, structurés et orientés action pour transformer vos visiteurs en clients.",
     hero_image_url: "/hero.svg",
     hero_primary_label: "Demander un devis",
     hero_primary_href: "/contact",
@@ -81,30 +80,30 @@ export const pageDefaults = {
     hero_secondary_href: "/contact#calendrier",
     feature_cards: [
       {
-        title: "Positionnement clair",
-        text: "Votre promesse est visible dès la première seconde.",
+        title: "Message clair",
+        text: "Votre valeur se comprend dès la première seconde.",
       },
       {
         title: "Design premium",
-        text: "Une interface élégante, alignée sur votre niveau de service.",
+        text: "Une interface moderne, crédible et différenciante.",
       },
       {
         title: "Parcours optimisé",
-        text: "CTA, preuves, microcopies : tout pousse vers l’action.",
+        text: "CTA, preuves et contenus qui guident vers l’action.",
       },
     ],
     method_steps: [
       {
-        title: "1. Audit & cadrage",
-        text: "Objectifs, cibles, différenciation, structure des pages.",
+        title: "1. Cadrage",
+        text: "Objectifs, cibles, messages et structure des pages.",
       },
       {
         title: "2. Design & contenus",
-        text: "Maquettes premium + rédaction orientée conversion.",
+        text: "Maquettes modernes + rédaction orientée action.",
       },
       {
         title: "3. Développement",
-        text: "Intégration Next.js, performance, responsive et SEO.",
+        text: "Intégration responsive et performances optimisées.",
       },
       {
         title: "4. Mise en ligne",
@@ -113,23 +112,23 @@ export const pageDefaults = {
     ],
     deliverables: [
       "Arborescence claire et pages clés",
-      "Copywriting orienté conversion",
+      "Textes clairs et orientés conversion",
       "Design premium et responsive",
-      "SEO technique complet",
+      "Optimisations techniques de base",
       "Formulaires et tracking intégrés",
       "Documentation et transfert",
     ],
     packs: [
       {
         title: "Essentiel",
-        text: "Site vitrine clair, 5 à 7 pages, SEO de base.",
+        text: "Site vitrine clair, 5 à 7 pages, optimisation de base.",
       },
       {
         title: "Croissance",
-        text: "Pages services détaillées + copywriting avancé.",
+        text: "Pages services détaillées + contenus renforcés.",
       },
       {
-        title: "SEO-first",
+        title: "Performance",
         text: "Architecture optimisée, contenus stratégiques, suivi.",
       },
     ],
@@ -140,7 +139,7 @@ export const pageDefaults = {
       },
       {
         title: "Est-ce que le site est optimisé pour le SEO ?",
-        text: "Oui, chaque page est structurée avec des balises optimisées, une architecture claire et des performances techniques solides.",
+        text: "Oui, chaque page est structurée avec des balises propres, une architecture claire et de bonnes performances techniques.",
       },
       {
         title: "Puis-je modifier le contenu ensuite ?",
@@ -148,7 +147,7 @@ export const pageDefaults = {
       },
       {
         title: "Proposez-vous la rédaction des textes ?",
-        text: "Oui, la rédaction est incluse pour des contenus orientés conversion et SEO.",
+        text: "Oui, la rédaction est incluse pour des contenus clairs et efficaces.",
       },
       {
         title: "Le site est-il responsive ?",
@@ -156,7 +155,7 @@ export const pageDefaults = {
       },
       {
         title: "Quels sont les livrables ?",
-        text: "Vous recevez un site complet, les maquettes, une structure SEO, les contenus et un plan de suivi.",
+        text: "Vous recevez un site complet, les maquettes, les contenus et un plan de suivi.",
       },
       {
         title: "Peut-on intégrer des formulaires et des outils ?",
@@ -164,7 +163,7 @@ export const pageDefaults = {
       },
       {
         title: "Quel budget prévoir ?",
-        text: "Chaque projet est cadré sur devis selon l’ambition, le contenu et les intégrations nécessaires.",
+        text: "Chaque projet est cadré sur devis selon l’ambition et les intégrations nécessaires.",
       },
     ],
     cta_title: "Un site qui reflète votre niveau de service.",
@@ -175,10 +174,9 @@ export const pageDefaults = {
     cta_secondary_href: "/contact#calendrier",
   },
   seo: {
-    hero_title:
-      "Un SEO structuré pour attirer des clients, pas seulement du trafic.",
+    hero_title: "Une visibilité durable pour attirer les bons clients.",
     hero_subtitle:
-      "Nous activons les 3 piliers du SEO : technique, contenu et autorité. Objectif : des positions durables et des leads qualifiés.",
+      "Nous activons les piliers essentiels : technique, contenu et autorité. Objectif : visibilité durable et contacts qualifiés.",
     hero_image_url: "/process.svg",
     hero_primary_label: "Demander un devis",
     hero_primary_href: "/contact",
@@ -191,7 +189,7 @@ export const pageDefaults = {
       },
       {
         title: "Contenu stratégique",
-        text: "Pages piliers, réponses aux intentions et copywriting clair.",
+        text: "Pages utiles, réponses aux intentions et messages clairs.",
       },
       {
         title: "Autorité durable",
@@ -239,8 +237,8 @@ export const pageDefaults = {
     ],
     faq: [
       {
-        title: "Quand voit-on les premiers résultats SEO ?",
-        text: "Le SEO est progressif. Les premiers signaux arrivent souvent en 2 à 3 mois, puis la visibilité se stabilise sur 6 à 9 mois.",
+        title: "Quand voit-on les premiers résultats ?",
+        text: "La visibilité progresse sur la durée. Les premiers signaux arrivent souvent en 2 à 3 mois.",
       },
       {
         title: "Faut-il publier du contenu chaque semaine ?",
@@ -248,11 +246,11 @@ export const pageDefaults = {
       },
       {
         title: "Travaillez-vous le SEO local ?",
-        text: "Oui, nous optimisons la présence locale : pages dédiées, signaux de confiance et maillage adapté.",
+        text: "Oui, nous optimisons la présence locale : pages dédiées et signaux de confiance.",
       },
       {
         title: "Le SEO est-il compatible avec la publicité ?",
-        text: "Oui, les deux canaux sont complémentaires. Le SEO réduit votre dépendance à la publicité.",
+        text: "Oui, les deux canaux sont complémentaires.",
       },
       {
         title: "Faites-vous l’optimisation technique ?",
@@ -271,7 +269,7 @@ export const pageDefaults = {
         text: "Oui, l’audit est souvent la première étape pour définir la stratégie.",
       },
     ],
-    cta_title: "Prêt à structurer votre visibilité SEO ?",
+    cta_title: "Prêt à structurer votre visibilité ?",
     cta_subtitle: "Obtenez un plan d’action clair et priorisé.",
     cta_primary_label: "Demander un devis",
     cta_primary_href: "/contact",
@@ -279,19 +277,19 @@ export const pageDefaults = {
     cta_secondary_href: "/contact#calendrier",
   },
   about: {
-    hero_title: "Une agence boutique pour des décisions rapides et efficaces.",
+    hero_title: "Un studio digital pour des décisions rapides et efficaces.",
     hero_subtitle:
-      "Valérian Digital accompagne les entreprises françaises qui veulent un site propre, rapide et un référencement naturel qui génère des leads.",
+      "Nous accompagnons les entreprises qui veulent un site propre, rapide et une visibilité durable.",
     hero_image_url: "/about.svg",
     positioning_title:
-      "L’interlocuteur senior qui relie design, tech et SEO.",
+      "Un interlocuteur senior qui relie design, tech et contenu.",
     positioning_text:
       "Vous gagnez en clarté grâce à un accompagnement pragmatique : une stratégie simple, des priorités business, des livrables concrets.",
     values: [
       "Exigence sur la qualité et la performance.",
       "Transparence sur les actions et les résultats.",
       "Simplicité dans la communication.",
-      "Focus sur la conversion et les leads.",
+      "Focus sur la conversion et la clarté.",
     ],
     differentiators: [
       {
@@ -303,7 +301,7 @@ export const pageDefaults = {
         text: "Des cycles courts avec validation claire à chaque étape.",
       },
       {
-        title: "SEO sans promesses",
+        title: "Vision long terme",
         text: "Une stratégie durable, alignée sur vos priorités.",
       },
     ],
@@ -323,30 +321,30 @@ export const pageDefaults = {
     call_text: "Dites-nous vos créneaux et nous revenons vers vous sous 24h.",
   },
   blog: {
-    hero_title:
-      "Des contenus pour améliorer votre visibilité et vos conversions.",
-    hero_subtitle: "Stratégie SEO, structure des pages, performance et acquisition.",
+    hero_title: "Des contenus pour améliorer votre présence en ligne.",
+    hero_subtitle: "Conseils, méthodes et retours d’expérience pour progresser.",
   },
   realisations: {
-    hero_title: "Études de cas : sites et SEO qui servent la croissance.",
-    hero_subtitle: "Quelques projets représentatifs pour des entreprises ambitieuses.",
+    hero_title: "Études de cas : des projets conçus pour performer.",
+    hero_subtitle: "Quelques réalisations représentatives dans divers secteurs.",
     hero_image_url: "/case-study.svg",
   },
   mentions: {
     title: "Mentions légales",
     body: [
-      "Éditeur du site : Valérian Digital. Contact : contact@valerian-digital.fr / 01 84 80 18 24.",
-      "Adresse : 12 rue de la République, 75002 Paris, FR.",
+      "Éditeur du site : [Nom de l’entreprise].",
+      "Contact : [email] / [téléphone].",
+      "Adresse : [adresse complète].",
       "Hébergeur : Netlify, Inc. (San Francisco, USA).",
-      "Responsable de publication : Valérian Digital.",
+      "Responsable de publication : [nom].",
     ],
   },
   privacy: {
     title: "Politique de confidentialité",
     body: [
-      "Les données collectées via le formulaire de contact servent uniquement à répondre à votre demande. Elles ne sont ni revendues ni partagées.",
-      "Vous pouvez demander la modification ou la suppression de vos données à tout moment en écrivant à contact@valerian-digital.fr.",
-      "Les mesures techniques nécessaires sont mises en place pour protéger vos informations (sécurisation des accès, suivi des bonnes pratiques).",
+      "Les données collectées via le formulaire de contact servent uniquement à répondre à votre demande.",
+      "Vous pouvez demander la modification ou la suppression de vos données à tout moment en écrivant à [email].",
+      "Les mesures techniques nécessaires sont mises en place pour protéger vos informations.",
     ],
   },
   thanks: {
