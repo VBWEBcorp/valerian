@@ -47,30 +47,51 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
-  const body = (await request.json()) as CreatePayload;
-  if (!body.slug || !body.title || !body.meta_title || !body.meta_description) {
-    return NextResponse.json({ ok: false }, { status: 400 });
+  try {
+    const body = (await request.json()) as CreatePayload;
+    if (
+      !body.slug ||
+      !body.title ||
+      !body.meta_title ||
+      !body.meta_description
+    ) {
+      return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const normalizedSlug = normalizeSlug(body.slug);
+    const result = await query(
+      "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, focus_keyword, canonical_url, og_image_url, author_name, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING id",
+      [
+        normalizedSlug,
+        body.title,
+        body.meta_title,
+        body.meta_description,
+        body.excerpt ?? "",
+        body.intent ?? "Article",
+        body.focus_keyword ?? null,
+        body.canonical_url ?? null,
+        body.og_image_url ?? null,
+        body.author_name ?? null,
+        body.cover_image_url ?? null,
+        body.content_markdown ?? "",
+        body.published ?? true,
+      ]
+    );
+
+    return NextResponse.json({ ok: true, id: result.rows[0]?.id });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erreur inconnue.";
+    const isSchemaError =
+      message.includes("column") && message.includes("does not exist");
+    return NextResponse.json(
+      {
+        ok: false,
+        error: isSchemaError
+          ? "La base n'est pas à jour. Exécute le script SQL blog_posts_update.sql."
+          : "Erreur serveur lors de la création.",
+      },
+      { status: 500 }
+    );
   }
-
-  const normalizedSlug = normalizeSlug(body.slug);
-  const result = await query(
-    "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, focus_keyword, canonical_url, og_image_url, author_name, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING id",
-    [
-      normalizedSlug,
-      body.title,
-      body.meta_title,
-      body.meta_description,
-      body.excerpt ?? "",
-      body.intent ?? "Article",
-      body.focus_keyword ?? null,
-      body.canonical_url ?? null,
-      body.og_image_url ?? null,
-      body.author_name ?? null,
-      body.cover_image_url ?? null,
-      body.content_markdown ?? "",
-      body.published ?? true,
-    ]
-  );
-
-  return NextResponse.json({ ok: true, id: result.rows[0]?.id });
 }

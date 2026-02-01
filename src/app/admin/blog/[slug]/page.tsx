@@ -55,7 +55,14 @@ export default function AdminBlogEditPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-    setMessage(response.ok ? "Article mis à jour." : "Erreur lors de la mise à jour.");
+    if (response.ok) {
+      setMessage("Article mis à jour.");
+    } else {
+      const data = await response.json().catch(() => null);
+      setMessage(
+        data?.error || "Erreur lors de la mise à jour. Vérifie les champs."
+      );
+    }
     setSaving(false);
   }
 

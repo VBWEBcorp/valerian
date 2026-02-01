@@ -39,7 +39,10 @@ export default function AdminBlogNewPage() {
       body: JSON.stringify(form),
     });
     if (!response.ok) {
-      setError("Impossible de créer l’article. Vérifie les champs.");
+      const data = await response.json().catch(() => null);
+      setError(
+        data?.error || "Impossible de créer l’article. Vérifie les champs."
+      );
       setSaving(false);
       return;
     }

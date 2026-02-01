@@ -56,29 +56,45 @@ export async function PUT(
   }
 
   const { slug } = await params;
-  const body = (await request.json()) as UpdatePayload;
-  const normalizedSlug = body.slug ? normalizeSlug(body.slug) : slug;
-  await query(
-    "UPDATE blog_posts SET slug = $1, title = $2, meta_title = $3, meta_description = $4, excerpt = $5, intent = $6, focus_keyword = $7, canonical_url = $8, og_image_url = $9, author_name = $10, cover_image_url = $11, content_markdown = $12, published = $13, updated_at = NOW() WHERE slug = $14",
-    [
-      normalizedSlug,
-      body.title ?? "",
-      body.meta_title ?? "",
-      body.meta_description ?? "",
-      body.excerpt ?? "",
-      body.intent ?? "Article",
-      body.focus_keyword ?? null,
-      body.canonical_url ?? null,
-      body.og_image_url ?? null,
-      body.author_name ?? null,
-      body.cover_image_url ?? null,
-      body.content_markdown ?? "",
-      body.published ?? true,
-      slug,
-    ]
-  );
+  try {
+    const body = (await request.json()) as UpdatePayload;
+    const normalizedSlug = body.slug ? normalizeSlug(body.slug) : slug;
+    await query(
+      "UPDATE blog_posts SET slug = $1, title = $2, meta_title = $3, meta_description = $4, excerpt = $5, intent = $6, focus_keyword = $7, canonical_url = $8, og_image_url = $9, author_name = $10, cover_image_url = $11, content_markdown = $12, published = $13, updated_at = NOW() WHERE slug = $14",
+      [
+        normalizedSlug,
+        body.title ?? "",
+        body.meta_title ?? "",
+        body.meta_description ?? "",
+        body.excerpt ?? "",
+        body.intent ?? "Article",
+        body.focus_keyword ?? null,
+        body.canonical_url ?? null,
+        body.og_image_url ?? null,
+        body.author_name ?? null,
+        body.cover_image_url ?? null,
+        body.content_markdown ?? "",
+        body.published ?? true,
+        slug,
+      ]
+    );
 
-  return NextResponse.json({ ok: true, slug: normalizedSlug });
+    return NextResponse.json({ ok: true, slug: normalizedSlug });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Erreur inconnue.";
+    const isSchemaError =
+      message.includes("column") && message.includes("does not exist");
+    return NextResponse.json(
+      {
+        ok: false,
+        error: isSchemaError
+          ? "La base n'est pas à jour. Exécute le script SQL blog_posts_update.sql."
+          : "Erreur serveur lors de la mise à jour.",
+      },
+      { status: 500 }
+    );
+  }
 }
 
 export async function DELETE(
