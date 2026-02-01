@@ -42,31 +42,6 @@ function toAbsoluteUrl(path: string) {
 export default async function BlogPage() {
   const content = await getPageContent("blog", pageDefaults.blog);
   const posts = await getBlogPosts();
-  // #region agent log
-  fetch("http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      sessionId: "debug-session",
-      runId: "pre-fix",
-      hypothesisId: "H1",
-      location: "src/app/blog/page.tsx:39",
-      message: "DB posts sample",
-      data: {
-        postsLength: posts.length,
-        firstHasCover:
-          posts[0] && typeof posts[0] === "object"
-            ? "cover_image_url" in posts[0]
-            : null,
-        firstCoverType:
-          posts[0] && typeof posts[0] === "object"
-            ? typeof (posts[0] as { cover_image_url?: unknown }).cover_image_url
-            : null,
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
   const list: BlogCard[] = posts.length
     ? posts.map((post) => ({
         slug: cleanSlug(post.slug),
@@ -82,25 +57,6 @@ export default async function BlogPage() {
         cover_image_url:
           "cover_image_url" in post ? post.cover_image_url ?? null : null,
       }));
-  // #region agent log
-  fetch("http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      sessionId: "debug-session",
-      runId: "pre-fix",
-      hypothesisId: "H2",
-      location: "src/app/blog/page.tsx:72",
-      message: "List sample",
-      data: {
-        listLength: list.length,
-        firstCoverType: list[0] ? typeof list[0].cover_image_url : null,
-        firstHasCover: list[0] ? Boolean(list[0].cover_image_url) : null,
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Blog", href: "/blog" },
@@ -124,31 +80,9 @@ export default async function BlogPage() {
       position: index + 1,
       name: post.title,
       url: `${site.url}/blog/${post.slug}`,
-      image: (() => {
-        const coverImage =
-          typeof post.cover_image_url === "string" ? post.cover_image_url : "";
-        if (index === 0) {
-          // #region agent log
-          fetch("http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              sessionId: "debug-session",
-              runId: "pre-fix",
-              hypothesisId: "H3",
-              location: "src/app/blog/page.tsx:92",
-              message: "ItemList image mapping",
-              data: {
-                coverImageType: typeof post.cover_image_url,
-                coverImageValue: coverImage ? "non-empty" : "empty",
-              },
-              timestamp: Date.now(),
-            }),
-          }).catch(() => {});
-          // #endregion
-        }
-        return coverImage ? toAbsoluteUrl(coverImage) : undefined;
-      })(),
+      image: post.cover_image_url
+        ? toAbsoluteUrl(post.cover_image_url)
+        : undefined,
     })),
   };
 
