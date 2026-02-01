@@ -31,9 +31,6 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const rawSlug = decodeURIComponent(slug ?? "");
   const normalizedSlug = normalizeSlug(rawSlug);
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3',location:'src/app/blog/[slug]/page.tsx:generateMetadata',message:'metadata lookup',data:{rawSlug,normalizedSlug},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   const dbPost = await getBlogPostBySlug(rawSlug);
   const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
@@ -48,11 +45,26 @@ export async function generateMetadata({ params }: PageProps) {
     });
   }
 
+  const image =
+    ("og_image_url" in post && post.og_image_url) ||
+    ("cover_image_url" in post && post.cover_image_url) ||
+    undefined;
+  const canonicalPath =
+    "canonical_url" in post && post.canonical_url
+      ? post.canonical_url
+      : `/blog/${post.slug}`;
+  const focusKeyword =
+    "focus_keyword" in post && post.focus_keyword
+      ? [post.focus_keyword]
+      : undefined;
+
   return createMetadata({
     title: "meta_title" in post ? post.meta_title : post.title,
     description:
       "meta_description" in post ? post.meta_description : post.excerpt,
-    path: `/blog/${post.slug}`,
+    path: canonicalPath,
+    image,
+    keywords: focusKeyword,
   });
 }
 
@@ -60,9 +72,6 @@ export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
   const rawSlug = decodeURIComponent(slug ?? "");
   const normalizedSlug = normalizeSlug(rawSlug);
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H3',location:'src/app/blog/[slug]/page.tsx:BlogPostPage:entry',message:'page entry',data:{rawSlug,normalizedSlug},timestamp:Date.now()})}).catch(()=>{});
-  // #endregion
   const dbPost = await getBlogPostBySlug(rawSlug);
   const list = dbPost ? [dbPost] : await getBlogPosts();
   const post =
@@ -70,9 +79,6 @@ export default async function BlogPostPage({ params }: PageProps) {
     blogPosts.find((item) => normalizeSlug(item.slug) === normalizedSlug);
 
   if (!post) {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/94ae9cb7-fbb9-4936-b0d5-31a7a1327391',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({sessionId:'debug-session',runId:'pre-fix',hypothesisId:'H4',location:'src/app/blog/[slug]/page.tsx:BlogPostPage:notFound',message:'post not found',data:{rawSlug,normalizedSlug,dbPost:!!dbPost,listCount:list.length,hasFallback:blogPosts.some((item)=>normalizeSlug(item.slug)===normalizedSlug)},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
     notFound();
   }
 
@@ -93,9 +99,42 @@ export default async function BlogPostPage({ params }: PageProps) {
     })),
   };
 
+  const articleSchema =
+    "content_markdown" in post
+      ? {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          image:
+            ("og_image_url" in post && post.og_image_url) ||
+            ("cover_image_url" in post && post.cover_image_url) ||
+            `${site.url}/og-default.svg`,
+          author: {
+            "@type": "Person",
+            name:
+              ("author_name" in post && post.author_name) || site.legalName,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: site.legalName,
+            logo: {
+              "@type": "ImageObject",
+              url: `${site.url}/og-default.svg`,
+            },
+          },
+          datePublished:
+            "created_at" in post && post.created_at ? post.created_at : undefined,
+          dateModified:
+            "updated_at" in post && post.updated_at ? post.updated_at : undefined,
+          mainEntityOfPage: `${site.url}/blog/${post.slug}`,
+        }
+      : null;
+
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
+      {articleSchema && <JsonLd data={articleSchema} />}
 
       <Section className="bg-white">
         <Container className="space-y-6">

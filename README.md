@@ -61,6 +61,7 @@ Ce projet inclut un mini CMS pour modifier le contenu de l’accueil via `/admin
 - Récupère `DATABASE_URL`
 - Exécute le script `sql/page_content.sql` dans l’éditeur SQL Neon
 - Exécute le script `sql/blog_posts.sql` pour les articles
+- Si la table existe déjà, exécute `sql/blog_posts_update.sql` pour ajouter les champs SEO
 
 ### 2) Variables d’environnement (Netlify ou .env.local)
 
@@ -101,6 +102,10 @@ Le blog est entièrement géré via le CMS admin. Tu peux créer, modifier et su
 - `meta_description` : Description SEO (max 160 caractères recommandé)
 - `excerpt` : Résumé court pour la carte sur la page `/blog`
 - `intent` : Catégorie affichée (ex: "SEO stratégique", "Article")
+- `focus_keyword` : Mot-clé principal (RankMath)
+- `canonical_url` : URL canonique (optionnel)
+- `og_image_url` : Image OpenGraph (optionnel)
+- `author_name` : Auteur (optionnel)
 - `cover_image_url` : URL de l'image de couverture (optionnel)
 - `content_markdown` : Contenu de l'article en Markdown (avec liens internes/externes)
 - `published` : Si coché, l'article est visible publiquement

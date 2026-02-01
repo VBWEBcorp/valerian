@@ -6,6 +6,10 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   meta_description TEXT NOT NULL,
   excerpt TEXT NOT NULL,
   intent TEXT NOT NULL DEFAULT 'Article',
+  focus_keyword TEXT,
+  canonical_url TEXT,
+  og_image_url TEXT,
+  author_name TEXT,
   cover_image_url TEXT,
   content_markdown TEXT NOT NULL,
   published BOOLEAN NOT NULL DEFAULT TRUE,
@@ -20,6 +24,10 @@ INSERT INTO blog_posts (
   meta_description,
   excerpt,
   intent,
+  focus_keyword,
+  canonical_url,
+  og_image_url,
+  author_name,
   cover_image_url,
   content_markdown,
   published
@@ -31,6 +39,10 @@ INSERT INTO blog_posts (
   'Structure, messages et preuves : les fondamentaux pour transformer vos visiteurs en prospects.',
   'Structure, messages, preuves et microcopies : les fondamentaux pour transformer vos visiteurs en prospects.',
   'Conversion / UX',
+  'site vitrine qui convertit',
+  NULL,
+  NULL,
+  'Valérian Digital',
   NULL,
   $$
 Un bon site vitrine ne se contente pas d’être joli. Il guide le visiteur, répond aux objections et oriente vers l’action.
@@ -55,6 +67,10 @@ Avis clients, logos, études de cas : ce sont vos meilleurs leviers pour rassure
   'La méthode en 4 étapes pour lancer un référencement naturel rentable.',
   'La méthode en 4 étapes pour lancer un référencement naturel rentable, même avec une petite équipe.',
   'SEO stratégique',
+  'seo pour tpe pme',
+  NULL,
+  NULL,
+  'Valérian Digital',
   NULL,
   $$
 Le SEO n’est pas une check-list magique. Il faut une méthode claire, des priorités et des objectifs réalistes.
@@ -74,6 +90,10 @@ Organisez votre site en silos clairs et produisez du contenu qui répond aux int
   'Checklist simple pour sécuriser votre visibilité lors d’une refonte.',
   'Checklist simple pour sécuriser votre visibilité lors d’une refonte ou d’un changement de CMS.',
   'SEO technique',
+  'refonte site web',
+  NULL,
+  NULL,
+  'Valérian Digital',
   NULL,
   $$
 Une refonte mal gérée peut faire chuter votre visibilité. Anticiper la migration est indispensable.

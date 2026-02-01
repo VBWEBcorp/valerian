@@ -6,6 +6,7 @@ type MetadataInput = {
   description: string;
   path: string;
   image?: string;
+  keywords?: string[];
 };
 
 export function createMetadata({
@@ -13,13 +14,17 @@ export function createMetadata({
   description,
   path,
   image = "/og-default.svg",
+  keywords,
 }: MetadataInput): Metadata {
   const canonical = new URL(path, site.url).toString();
+  const mergedKeywords = keywords?.length
+    ? [...keywords, ...site.keywords]
+    : [...site.keywords];
 
   return {
     title,
     description,
-    keywords: [...site.keywords],
+    keywords: mergedKeywords,
     alternates: {
       canonical,
     },

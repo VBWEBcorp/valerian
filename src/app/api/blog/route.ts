@@ -10,6 +10,10 @@ type CreatePayload = {
   meta_description?: string;
   excerpt?: string;
   intent?: string;
+  focus_keyword?: string;
+  canonical_url?: string;
+  og_image_url?: string;
+  author_name?: string;
   cover_image_url?: string;
   content_markdown?: string;
   published?: boolean;
@@ -50,7 +54,7 @@ export async function POST(request: Request) {
 
   const normalizedSlug = normalizeSlug(body.slug);
   const result = await query(
-    "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id",
+    "INSERT INTO blog_posts (slug, title, meta_title, meta_description, excerpt, intent, focus_keyword, canonical_url, og_image_url, author_name, cover_image_url, content_markdown, published) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13) RETURNING id",
     [
       normalizedSlug,
       body.title,
@@ -58,6 +62,10 @@ export async function POST(request: Request) {
       body.meta_description,
       body.excerpt ?? "",
       body.intent ?? "Article",
+      body.focus_keyword ?? null,
+      body.canonical_url ?? null,
+      body.og_image_url ?? null,
+      body.author_name ?? null,
       body.cover_image_url ?? null,
       body.content_markdown ?? "",
       body.published ?? true,

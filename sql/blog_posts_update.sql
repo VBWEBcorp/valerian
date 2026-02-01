@@ -1,0 +1,5 @@
+ALTER TABLE blog_posts
+  ADD COLUMN IF NOT EXISTS focus_keyword TEXT,
+  ADD COLUMN IF NOT EXISTS canonical_url TEXT,
+  ADD COLUMN IF NOT EXISTS og_image_url TEXT,
+  ADD COLUMN IF NOT EXISTS author_name TEXT;

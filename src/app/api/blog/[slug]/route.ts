@@ -10,6 +10,10 @@ type UpdatePayload = {
   meta_description?: string;
   excerpt?: string;
   intent?: string;
+  focus_keyword?: string;
+  canonical_url?: string;
+  og_image_url?: string;
+  author_name?: string;
   cover_image_url?: string;
   content_markdown?: string;
   published?: boolean;
@@ -55,7 +59,7 @@ export async function PUT(
   const body = (await request.json()) as UpdatePayload;
   const normalizedSlug = body.slug ? normalizeSlug(body.slug) : slug;
   await query(
-    "UPDATE blog_posts SET slug = $1, title = $2, meta_title = $3, meta_description = $4, excerpt = $5, intent = $6, cover_image_url = $7, content_markdown = $8, published = $9, updated_at = NOW() WHERE slug = $10",
+    "UPDATE blog_posts SET slug = $1, title = $2, meta_title = $3, meta_description = $4, excerpt = $5, intent = $6, focus_keyword = $7, canonical_url = $8, og_image_url = $9, author_name = $10, cover_image_url = $11, content_markdown = $12, published = $13, updated_at = NOW() WHERE slug = $14",
     [
       normalizedSlug,
       body.title ?? "",
@@ -63,6 +67,10 @@ export async function PUT(
       body.meta_description ?? "",
       body.excerpt ?? "",
       body.intent ?? "Article",
+      body.focus_keyword ?? null,
+      body.canonical_url ?? null,
+      body.og_image_url ?? null,
+      body.author_name ?? null,
       body.cover_image_url ?? null,
       body.content_markdown ?? "",
       body.published ?? true,

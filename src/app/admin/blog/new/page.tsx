@@ -14,6 +14,10 @@ export default function AdminBlogNewPage() {
     meta_description: "",
     excerpt: "",
     intent: "Article",
+    focus_keyword: "",
+    canonical_url: "",
+    og_image_url: "",
+    author_name: "",
     cover_image_url: "",
     content_markdown: "",
     published: true,
@@ -117,6 +121,59 @@ export default function AdminBlogNewPage() {
               <p className="mt-1 text-xs text-slate-500">
                 Cette catégorie s'affiche sur la carte de l'article (ex: "SEO stratégique", "Article").
               </p>
+            </div>
+            <div>
+              <label className="text-sm font-semibold">Mot-clé principal</label>
+              <input
+                value={form.focus_keyword}
+                onChange={(event) =>
+                  setForm({ ...form, focus_keyword: event.target.value })
+                }
+                placeholder="ex: seo pour tpe pme"
+                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
+              />
+              <p className="mt-1 text-xs text-slate-500">
+                Utilisé pour le SEO (RankMath).
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-semibold">URL canonique</label>
+              <input
+                value={form.canonical_url}
+                onChange={(event) =>
+                  setForm({ ...form, canonical_url: event.target.value })
+                }
+                placeholder="/blog/slug ou https://..."
+                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
+              />
+              <p className="mt-1 text-xs text-slate-500">
+                Laisse vide pour utiliser l’URL automatique.
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-semibold">Image OpenGraph (URL)</label>
+              <input
+                value={form.og_image_url}
+                onChange={(event) =>
+                  setForm({ ...form, og_image_url: event.target.value })
+                }
+                placeholder="https://..."
+                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
+              />
+              <p className="mt-1 text-xs text-slate-500">
+                Utilisée pour le partage social (LinkedIn, WhatsApp, etc.).
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-semibold">Auteur</label>
+              <input
+                value={form.author_name}
+                onChange={(event) =>
+                  setForm({ ...form, author_name: event.target.value })
+                }
+                placeholder="Valérian Digital"
+                className="mt-2 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
+              />
             </div>
             <div>
               <label className="text-sm font-semibold">Image (URL)</label>
