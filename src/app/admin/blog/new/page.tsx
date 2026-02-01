@@ -26,6 +26,9 @@ export default function AdminBlogNewPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
+  const metaTitleLength = form.meta_title.length;
+  const metaDescLength = form.meta_description.length;
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
@@ -54,6 +57,21 @@ export default function AdminBlogNewPage() {
           <h2 className="mt-2 text-2xl font-semibold text-slate-900">
             Nouvel article
           </h2>
+
+          <div className="mt-6 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+            <p className="text-sm font-semibold text-blue-900">
+              💡 Guide rapide SEO
+            </p>
+            <ul className="mt-2 space-y-1 text-xs text-blue-800">
+              <li>• <strong>Meta title</strong> : 50–60 caractères (inclus le mot-clé principal)</li>
+              <li>• <strong>Meta description</strong> : 150–160 caractères (donne envie de cliquer)</li>
+              <li>• <strong>Mot-clé principal</strong> : celui que tu vises sur Google</li>
+              <li>• <strong>Structure</strong> : utilise H2 (##) et H3 (###) dans le contenu</li>
+              <li>• <strong>Liens internes</strong> : ajoute 2–3 liens vers d'autres pages du site</li>
+              <li>• <strong>Image</strong> : obligatoire pour l'affichage (nom de fichier descriptif)</li>
+            </ul>
+          </div>
+
           <div className="mt-6 grid gap-4">
             <div>
               <label className="text-sm font-semibold">Slug</label>
@@ -79,7 +97,20 @@ export default function AdminBlogNewPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold">Meta title</label>
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-semibold">Meta title</label>
+                <span
+                  className={`text-xs font-medium ${
+                    metaTitleLength >= 50 && metaTitleLength <= 60
+                      ? "text-green-600"
+                      : metaTitleLength > 60
+                      ? "text-red-600"
+                      : "text-slate-400"
+                  }`}
+                >
+                  {metaTitleLength}/60
+                </span>
+              </div>
               <input
                 value={form.meta_title}
                 onChange={(event) =>
@@ -90,7 +121,20 @@ export default function AdminBlogNewPage() {
               />
             </div>
             <div>
-              <label className="text-sm font-semibold">Meta description</label>
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-semibold">Meta description</label>
+                <span
+                  className={`text-xs font-medium ${
+                    metaDescLength >= 150 && metaDescLength <= 160
+                      ? "text-green-600"
+                      : metaDescLength > 160
+                      ? "text-red-600"
+                      : "text-slate-400"
+                  }`}
+                >
+                  {metaDescLength}/160
+                </span>
+              </div>
               <textarea
                 value={form.meta_description}
                 onChange={(event) =>
