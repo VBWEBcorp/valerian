@@ -25,6 +25,12 @@ function cleanSlug(value: string) {
   return value.replace(/^\/+/, "");
 }
 
+function toAbsoluteUrl(path: string) {
+  if (!path) return path;
+  if (path.startsWith("http")) return path;
+  return `${site.url}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+
 export default async function BlogPage() {
   const content = await getPageContent("blog", pageDefaults.blog);
   const posts = await getBlogPosts();
@@ -54,10 +60,25 @@ export default async function BlogPage() {
       item: `${site.url}${item.href}`,
     })),
   };
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: list.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: post.title,
+      url: `${site.url}/blog/${post.slug}`,
+      image:
+        "cover_image_url" in post && post.cover_image_url
+          ? toAbsoluteUrl(post.cover_image_url)
+          : undefined,
+    })),
+  };
 
   return (
     <>
       <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={itemListSchema} />
 
       <Section className="bg-white">
         <Container className="space-y-6">
@@ -83,18 +104,32 @@ export default async function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card card-hover rounded-2xl p-6"
+                className="card card-hover overflow-hidden rounded-2xl p-0"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-                  {post.intent}
-                </p>
-                <p className="mt-3 text-lg font-semibold text-neutral-900">
-                  {post.title}
-                </p>
-                <p className="mt-2 text-sm text-neutral-600">{post.excerpt}</p>
-                <p className="mt-4 text-sm font-semibold text-neutral-900">
-                  Lire l’article →
-                </p>
+                {"cover_image_url" in post && post.cover_image_url ? (
+                  <img
+                    src={post.cover_image_url}
+                    alt={post.title}
+                    className="h-48 w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex h-48 w-full items-center justify-center bg-neutral-100 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                    Image de couverture
+                  </div>
+                )}
+                <div className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                    {post.intent}
+                  </p>
+                  <p className="mt-3 text-lg font-semibold text-neutral-900">
+                    {post.title}
+                  </p>
+                  <p className="mt-2 text-sm text-neutral-600">{post.excerpt}</p>
+                  <p className="mt-4 text-sm font-semibold text-neutral-900">
+                    Lire l’article →
+                  </p>
+                </div>
               </Link>
             ))}
           </div>

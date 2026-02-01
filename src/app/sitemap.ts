@@ -2,8 +2,25 @@ import { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 import { blogPosts } from "@/content/blog";
 import { caseStudies } from "@/content/case-studies";
+import { getBlogPosts } from "@/lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+type BlogLike = {
+  slug: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+function cleanSlug(value: string) {
+  return value.replace(/^\/+/, "");
+}
+
+function toDate(value?: string) {
+  if (!value) return undefined;
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     "",
     "/services/creation-site-internet",
@@ -23,9 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1 : 0.7,
   }));
 
-  const blogRoutes = blogPosts.map((post) => ({
-    url: `${site.url}/blog/${post.slug}`,
-    lastModified: new Date(),
+  const dbPosts = await getBlogPosts();
+  const sourcePosts: BlogLike[] = dbPosts.length ? dbPosts : blogPosts;
+  const blogRoutes = sourcePosts.map((post) => ({
+    url: `${site.url}/blog/${cleanSlug(post.slug)}`,
+    lastModified:
+      toDate(post.updated_at) || toDate(post.created_at) || new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.6,
   }));

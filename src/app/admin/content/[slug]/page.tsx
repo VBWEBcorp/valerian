@@ -115,8 +115,14 @@ export default function AdminContentPage() {
   return (
     <Section>
       <Container>
-        <form onSubmit={handleSave} className="card rounded-3xl p-8">
-          <h1 className="text-2xl font-semibold text-slate-900">
+        <form
+          onSubmit={handleSave}
+          className="rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
+            Page
+          </p>
+          <h1 className="mt-2 text-2xl font-semibold text-slate-900">
             {pageTitles[slug] ?? slug}
           </h1>
           <p className="mt-2 text-sm text-slate-600">
@@ -143,7 +149,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       placeholder={isHrefField ? "/contact ou https://..." : ""}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                     />
                     {isHrefField && (
                       <p className="text-xs text-slate-500">
@@ -165,7 +171,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       placeholder="https://..."
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                     />
                     <p className="text-xs text-slate-500">
                       Colle une URL d’image (https://...). Tu peux remplacer
@@ -193,7 +199,7 @@ export default function AdminContentPage() {
                         setContent({ ...content, [key]: event.target.value })
                       }
                       rows={3}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                     />
                   </div>
                 );
@@ -216,7 +222,7 @@ export default function AdminContentPage() {
                         })
                       }
                       rows={4}
-                      className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                      className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                     />
                   </div>
                 );
@@ -230,7 +236,7 @@ export default function AdminContentPage() {
                       {cards.map((card, index) => (
                         <div
                           key={`${key}-${index}`}
-                          className="rounded-2xl border border-slate-200 bg-white p-4"
+                          className="rounded-2xl border border-slate-200/70 bg-white/80 p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
                         >
                           <input
                             placeholder="Titre"
@@ -240,7 +246,7 @@ export default function AdminContentPage() {
                               updated[index] = { ...updated[index], title: event.target.value };
                               setContent({ ...content, [key]: updated });
                             }}
-                            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                            className="w-full rounded-lg border border-slate-200/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                           />
                           <textarea
                             placeholder="Texte"
@@ -251,7 +257,7 @@ export default function AdminContentPage() {
                               setContent({ ...content, [key]: updated });
                             }}
                             rows={3}
-                            className="mt-2 w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                            className="mt-2 w-full rounded-lg border border-slate-200/80 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                           />
                         </div>
                       ))}
@@ -278,7 +284,7 @@ export default function AdminContentPage() {
                               setContent({ ...content, [key]: updated });
                             }}
                             placeholder="https://..."
-                            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+                            className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
                           />
                           {url && (
                             <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
@@ -306,7 +312,7 @@ export default function AdminContentPage() {
             <button
               type="submit"
               disabled={saving}
-              className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white hover:bg-neutral-800"
+              className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
             >
               {saving ? "Enregistrement..." : "Enregistrer"}
             </button>

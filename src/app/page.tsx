@@ -450,18 +450,32 @@ export default async function Home() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="card card-hover rounded-2xl p-6"
+                className="card card-hover overflow-hidden rounded-2xl p-0"
               >
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
-                  {post.intent}
-                </p>
-                <p className="mt-3 text-lg font-semibold text-slate-900">
-                  {post.title}
-                </p>
-                <p className="mt-2 text-sm text-slate-600">{post.excerpt}</p>
-                <p className="mt-4 text-sm font-semibold text-slate-900">
-                  Lire l’article →
-                </p>
+                {"cover_image_url" in post && post.cover_image_url ? (
+                  <img
+                    src={post.cover_image_url}
+                    alt={post.title}
+                    className="h-40 w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex h-40 w-full items-center justify-center bg-neutral-100 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
+                    Image de couverture
+                  </div>
+                )}
+                <div className="p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-500">
+                    {post.intent}
+                  </p>
+                  <p className="mt-3 text-lg font-semibold text-slate-900">
+                    {post.title}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-600">{post.excerpt}</p>
+                  <p className="mt-4 text-sm font-semibold text-slate-900">
+                    Lire l’article →
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
