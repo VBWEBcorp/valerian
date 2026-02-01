@@ -46,12 +46,10 @@ export default function AdminBlogListPage() {
   return (
     <Section className="pt-4 pb-12 md:pt-6 md:pb-14">
       <Container>
-        <div className="rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur">
+        <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-                Blog
-              </p>
+              <p className="text-xs font-medium text-slate-400">Blog</p>
               <h2 className="mt-2 text-2xl font-semibold text-slate-900">
                 Articles
               </h2>
@@ -61,7 +59,7 @@ export default function AdminBlogListPage() {
             </div>
             <Link
               href="/admin/blog/new"
-              className="rounded-full bg-neutral-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-neutral-800"
+              className="rounded-xl bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
             >
               Nouvel article
             </Link>
@@ -75,7 +73,7 @@ export default function AdminBlogListPage() {
             {posts.map((post) => (
               <div
                 key={post.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200/70 bg-white px-4 py-3 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-[0_8px_20px_rgba(15,23,42,0.04)]"
               >
                 <div>
                   <p className="text-sm font-semibold text-slate-900">

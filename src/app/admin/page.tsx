@@ -55,13 +55,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <Section className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <Section className="min-h-screen bg-[#f7f6f2]">
       <Container>
-        <div className="mx-auto grid max-w-4xl items-center gap-8 rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-[0_25px_70px_rgba(15,23,42,0.08)] backdrop-blur md:grid-cols-[1.1fr_1fr] md:p-10">
+        <div className="mx-auto grid max-w-4xl items-center gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] md:grid-cols-[1.1fr_1fr] md:p-10">
           <div className="space-y-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-              Valerian digital
-            </p>
+            <p className="text-xs font-medium text-slate-400">Valerian digital</p>
             <h1 className="text-3xl font-semibold text-slate-900">
               Espace admin
             </h1>
@@ -69,12 +67,12 @@ export default function AdminLoginPage() {
               Connecte-toi pour gérer les pages, les images et les articles du
               blog.
             </p>
-            <div className="rounded-2xl border border-slate-200/70 bg-slate-50/70 px-4 py-3 text-xs text-slate-500">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500">
               Astuce : utilise des mots de passe forts et change-les
               régulièrement.
             </div>
           </div>
-          <div className="rounded-3xl border border-slate-200/70 bg-white p-8 shadow-[0_18px_50px_rgba(15,23,42,0.08)]">
+          <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
             <h2 className="text-lg font-semibold text-slate-900">Connexion</h2>
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
               <div className="flex flex-col gap-2">
@@ -86,7 +84,7 @@ export default function AdminLoginPage() {
                   type="email"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                   required
                 />
               </div>
@@ -99,7 +97,7 @@ export default function AdminLoginPage() {
                   type="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                   required
                 />
               </div>
@@ -107,7 +105,7 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
+                className="w-full rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
               >
                 {loading ? "Connexion..." : "Se connecter"}
               </button>

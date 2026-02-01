@@ -110,10 +110,10 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => setMode("edit")}
-            className={`rounded-full px-3 py-1 ${
+            className={`rounded-xl px-3 py-1 ${
               mode === "edit"
-                ? "bg-neutral-900 text-white"
-                : "border border-slate-200 text-slate-600"
+                ? "bg-slate-900 text-white"
+                : "border border-slate-200 text-slate-600 hover:bg-slate-50"
             }`}
           >
             Editeur
@@ -121,10 +121,10 @@ export function MarkdownEditor({
           <button
             type="button"
             onClick={() => setMode("preview")}
-            className={`rounded-full px-3 py-1 ${
+            className={`rounded-xl px-3 py-1 ${
               mode === "preview"
-                ? "bg-neutral-900 text-white"
-                : "border border-slate-200 text-slate-600"
+                ? "bg-slate-900 text-white"
+                : "border border-slate-200 text-slate-600 hover:bg-slate-50"
             }`}
           >
             Apercu
@@ -137,56 +137,56 @@ export function MarkdownEditor({
             <button
               type="button"
               onClick={() => handlePrefix("# ")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               H1
             </button>
             <button
               type="button"
               onClick={() => handlePrefix("## ")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               H2
             </button>
             <button
               type="button"
               onClick={() => handlePrefix("### ")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               H3
             </button>
             <button
               type="button"
               onClick={() => handleWrap("**")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               Gras
             </button>
             <button
               type="button"
               onClick={() => handleWrap("*")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               Italique
             </button>
             <button
               type="button"
               onClick={handleLink}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               Lien
             </button>
             <button
               type="button"
               onClick={() => handlePrefix("- ")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               Liste
             </button>
             <button
               type="button"
               onClick={() => handlePrefix("> ")}
-              className="rounded-full border border-slate-200 px-3 py-1 text-slate-600"
+              className="rounded-xl border border-slate-200 px-3 py-1 text-slate-600 hover:bg-slate-50"
             >
               Citation
             </button>
@@ -196,7 +196,7 @@ export function MarkdownEditor({
             value={value}
             onChange={(event) => onChange(event.target.value)}
             rows={rows}
-            className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm font-mono"
+            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-slate-300"
           />
           <p className="text-xs text-slate-500">
             Astuce: utilise des liens internes comme /contact ou

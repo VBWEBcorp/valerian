@@ -48,11 +48,9 @@ export default function AdminBlogNewPage() {
       <Container>
         <form
           onSubmit={handleSubmit}
-          className="rounded-3xl border border-slate-200/70 bg-white/80 p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur"
+          className="rounded-3xl border border-slate-200 bg-white p-8 shadow-[0_12px_30px_rgba(15,23,42,0.06)]"
         >
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Blog
-          </p>
+          <p className="text-xs font-medium text-slate-400">Blog</p>
           <h2 className="mt-2 text-2xl font-semibold text-slate-900">
             Nouvel article
           </h2>
@@ -65,7 +63,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, slug: event.target.value })
                 }
                 placeholder="ex: site-vitrine-qui-convertit"
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                 required
               />
             </div>
@@ -76,7 +74,7 @@ export default function AdminBlogNewPage() {
                 onChange={(event) =>
                   setForm({ ...form, title: event.target.value })
                 }
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                 required
               />
             </div>
@@ -87,7 +85,7 @@ export default function AdminBlogNewPage() {
                 onChange={(event) =>
                   setForm({ ...form, meta_title: event.target.value })
                 }
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                 required
               />
             </div>
@@ -99,7 +97,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, meta_description: event.target.value })
                 }
                 rows={3}
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                 required
               />
             </div>
@@ -111,7 +109,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, excerpt: event.target.value })
                 }
                 rows={2}
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
               />
             </div>
             <div>
@@ -122,7 +120,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, intent: event.target.value })
                 }
                 placeholder="ex: SEO stratégique, Conversion / UX"
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
                 required
               />
               <p className="mt-1 text-xs text-slate-500">
@@ -137,7 +135,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, focus_keyword: event.target.value })
                 }
                 placeholder="ex: seo pour tpe pme"
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
               />
               <p className="mt-1 text-xs text-slate-500">
                 Utilisé pour le SEO (RankMath).
@@ -151,7 +149,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, canonical_url: event.target.value })
                 }
                 placeholder="/blog/slug ou https://..."
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
               />
               <p className="mt-1 text-xs text-slate-500">
                 Laisse vide pour utiliser l’URL automatique.
@@ -165,7 +163,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, og_image_url: event.target.value })
                 }
                 placeholder="https://..."
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
               />
               <p className="mt-1 text-xs text-slate-500">
                 Utilisée pour le partage social (LinkedIn, WhatsApp, etc.).
@@ -179,7 +177,7 @@ export default function AdminBlogNewPage() {
                   setForm({ ...form, author_name: event.target.value })
                 }
                 placeholder="Valérian Digital"
-                className="mt-2 w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900/10"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-slate-300"
               />
             </div>
             <div>
@@ -203,7 +201,7 @@ export default function AdminBlogNewPage() {
               label="Contenu"
               rows={14}
             />
-            <label className="flex items-center gap-2 text-sm text-slate-700">
+            <label className="flex items-center gap-2 text-sm text-slate-600">
               <input
                 type="checkbox"
                 checked={form.published}
@@ -218,7 +216,7 @@ export default function AdminBlogNewPage() {
           <button
             type="submit"
             disabled={saving}
-            className="mt-6 rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
+            className="mt-6 rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             {saving ? "Création..." : "Créer l’article"}
           </button>
