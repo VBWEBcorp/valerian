@@ -31,17 +31,24 @@ export const generateMetadata = () =>
 
 export const dynamic = "force-dynamic";
 
+function cleanSlug(value: string) {
+  return value.replace(/^\/+/, "");
+}
+
 export default async function Home() {
   const content = await getPageContent("home", pageDefaults.home);
   const posts = await getBlogPosts(3);
   const blogList = posts.length
     ? posts.map((post) => ({
-        slug: post.slug,
+        slug: cleanSlug(post.slug),
         title: post.title,
         excerpt: post.excerpt,
         intent: post.intent,
       }))
-    : blogPosts.slice(0, 3);
+    : blogPosts.slice(0, 3).map((post) => ({
+        ...post,
+        slug: cleanSlug(post.slug),
+      }));
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",

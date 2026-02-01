@@ -21,17 +21,24 @@ export const generateMetadata = () =>
 
 export const dynamic = "force-dynamic";
 
+function cleanSlug(value: string) {
+  return value.replace(/^\/+/, "");
+}
+
 export default async function BlogPage() {
   const content = await getPageContent("blog", pageDefaults.blog);
   const posts = await getBlogPosts();
   const list = posts.length
     ? posts.map((post) => ({
-        slug: post.slug,
+        slug: cleanSlug(post.slug),
         title: post.title,
         excerpt: post.excerpt,
         intent: post.intent,
       }))
-    : blogPosts;
+    : blogPosts.map((post) => ({
+        ...post,
+        slug: cleanSlug(post.slug),
+      }));
   const breadcrumbs = [
     { label: "Accueil", href: "/" },
     { label: "Blog", href: "/blog" },

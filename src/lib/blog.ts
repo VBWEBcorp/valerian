@@ -51,7 +51,15 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
       "SELECT * FROM blog_posts WHERE LOWER(slug) IN (LOWER($1), LOWER($2), LOWER($3)) LIMIT 1",
       [slug, normalizedSlug, withSlash]
     );
-    return result.rows[0] ?? null;
+    if (result.rows[0]) {
+      return result.rows[0];
+    }
+    const fallback = await query<BlogPost>("SELECT * FROM blog_posts");
+    return (
+      fallback.rows.find(
+        (post) => normalizeSlug(post.slug) === normalizedSlug
+      ) ?? null
+    );
   } catch {
     return null;
   }
